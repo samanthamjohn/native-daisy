@@ -1,0 +1,283 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		4791AC4D15572E3400A7A897 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4791AC4C15572E3400A7A897 /* UIKit.framework */; };
+		4791AC4F15572E3400A7A897 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4791AC4E15572E3400A7A897 /* Foundation.framework */; };
+		4791AC5115572E3400A7A897 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4791AC5015572E3400A7A897 /* CoreGraphics.framework */; };
+		4791AC5715572E3400A7A897 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4791AC5515572E3400A7A897 /* InfoPlist.strings */; };
+		4791AC5915572E3400A7A897 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4791AC5815572E3400A7A897 /* main.m */; };
+		4791AC5D15572E3400A7A897 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4791AC5C15572E3400A7A897 /* AppDelegate.m */; };
+		4791AC6015572E3400A7A897 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4791AC5E15572E3400A7A897 /* MainStoryboard.storyboard */; };
+		4791AC6315572E3400A7A897 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4791AC6215572E3400A7A897 /* ViewController.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		4791AC4815572E3400A7A897 /* DaisyTheDinosaur.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DaisyTheDinosaur.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4791AC4C15572E3400A7A897 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		4791AC4E15572E3400A7A897 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		4791AC5015572E3400A7A897 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		4791AC5415572E3400A7A897 /* DaisyTheDinosaur-Info.plist */ = {isa = PBXFileReference; path = "DaisyTheDinosaur-Info.plist"; sourceTree = "<group>"; };
+		4791AC5615572E3400A7A897 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		4791AC5815572E3400A7A897 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		4791AC5A15572E3400A7A897 /* DaisyTheDinosaur-Prefix.pch */ = {isa = PBXFileReference; path = "DaisyTheDinosaur-Prefix.pch"; sourceTree = "<group>"; };
+		4791AC5B15572E3400A7A897 /* AppDelegate.h */ = {isa = PBXFileReference; path = AppDelegate.h; sourceTree = "<group>"; };
+		4791AC5C15572E3400A7A897 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		4791AC5F15572E3400A7A897 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
+		4791AC6115572E3400A7A897 /* ViewController.h */ = {isa = PBXFileReference; path = ViewController.h; sourceTree = "<group>"; };
+		4791AC6215572E3400A7A897 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		4791AC4515572E3400A7A897 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4791AC4D15572E3400A7A897 /* UIKit.framework in Frameworks */,
+				4791AC4F15572E3400A7A897 /* Foundation.framework in Frameworks */,
+				4791AC5115572E3400A7A897 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		4791AC3D15572E3300A7A897 = {
+			isa = PBXGroup;
+			children = (
+				4791AC5215572E3400A7A897 /* DaisyTheDinosaur */,
+				4791AC4B15572E3400A7A897 /* Frameworks */,
+				4791AC4915572E3400A7A897 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		4791AC4915572E3400A7A897 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4791AC4815572E3400A7A897 /* DaisyTheDinosaur.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		4791AC4B15572E3400A7A897 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4791AC4C15572E3400A7A897 /* UIKit.framework */,
+				4791AC4E15572E3400A7A897 /* Foundation.framework */,
+				4791AC5015572E3400A7A897 /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4791AC5215572E3400A7A897 /* DaisyTheDinosaur */ = {
+			isa = PBXGroup;
+			children = (
+				4791AC5B15572E3400A7A897 /* AppDelegate.h */,
+				4791AC5C15572E3400A7A897 /* AppDelegate.m */,
+				4791AC5E15572E3400A7A897 /* MainStoryboard.storyboard */,
+				4791AC6115572E3400A7A897 /* ViewController.h */,
+				4791AC6215572E3400A7A897 /* ViewController.m */,
+				4791AC5315572E3400A7A897 /* Supporting Files */,
+			);
+			path = DaisyTheDinosaur;
+			sourceTree = "<group>";
+		};
+		4791AC5315572E3400A7A897 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				4791AC5415572E3400A7A897 /* DaisyTheDinosaur-Info.plist */,
+				4791AC5515572E3400A7A897 /* InfoPlist.strings */,
+				4791AC5815572E3400A7A897 /* main.m */,
+				4791AC5A15572E3400A7A897 /* DaisyTheDinosaur-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		4791AC4715572E3400A7A897 /* DaisyTheDinosaur */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4791AC6615572E3400A7A897 /* Build configuration list for PBXNativeTarget "DaisyTheDinosaur" */;
+			buildPhases = (
+				4791AC4415572E3400A7A897 /* Sources */,
+				4791AC4515572E3400A7A897 /* Frameworks */,
+				4791AC4615572E3400A7A897 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DaisyTheDinosaur;
+			productName = DaisyTheDinosaur;
+			productReference = 4791AC4815572E3400A7A897 /* DaisyTheDinosaur.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		4791AC3F15572E3300A7A897 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0430;
+			};
+			buildConfigurationList = 4791AC4215572E3300A7A897 /* Build configuration list for PBXProject "DaisyTheDinosaur" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 4791AC3D15572E3300A7A897;
+			productRefGroup = 4791AC4915572E3400A7A897 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				4791AC4715572E3400A7A897 /* DaisyTheDinosaur */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		4791AC4615572E3400A7A897 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4791AC5715572E3400A7A897 /* InfoPlist.strings in Resources */,
+				4791AC6015572E3400A7A897 /* MainStoryboard.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		4791AC4415572E3400A7A897 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4791AC5915572E3400A7A897 /* main.m in Sources */,
+				4791AC5D15572E3400A7A897 /* AppDelegate.m in Sources */,
+				4791AC6315572E3400A7A897 /* ViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		4791AC5515572E3400A7A897 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4791AC5615572E3400A7A897 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		4791AC5E15572E3400A7A897 /* MainStoryboard.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4791AC5F15572E3400A7A897 /* en */,
+			);
+			name = MainStoryboard.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		4791AC6415572E3400A7A897 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Debug;
+		};
+		4791AC6515572E3400A7A897 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 2;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		4791AC6715572E3400A7A897 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "DaisyTheDinosaur/DaisyTheDinosaur-Prefix.pch";
+				INFOPLIST_FILE = "DaisyTheDinosaur/DaisyTheDinosaur-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		4791AC6815572E3400A7A897 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "DaisyTheDinosaur/DaisyTheDinosaur-Prefix.pch";
+				INFOPLIST_FILE = "DaisyTheDinosaur/DaisyTheDinosaur-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4791AC4215572E3300A7A897 /* Build configuration list for PBXProject "DaisyTheDinosaur" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4791AC6415572E3400A7A897 /* Debug */,
+				4791AC6515572E3400A7A897 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4791AC6615572E3400A7A897 /* Build configuration list for PBXNativeTarget "DaisyTheDinosaur" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4791AC6715572E3400A7A897 /* Debug */,
+				4791AC6815572E3400A7A897 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 4791AC3F15572E3300A7A897 /* Project object */;
+}
