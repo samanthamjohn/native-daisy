@@ -25,13 +25,10 @@
     return self;
 }
 
-- (NSDictionary *)toolbox
+- (NSArray *)toolbox
 {
-    NSArray *controls = [[NSArray alloc] initWithObjects:@"repeat", @"when", nil];
-    NSArray *methods = [[NSArray alloc] initWithObjects:@"move", @"turn", @"grow", @"shrink", @"jump", @"roll", @"spin" , nil];
-    NSArray *tools = [[NSArray alloc] initWithObjects:controls, methods, nil];
-    NSArray *toolKeys = [[NSArray alloc] initWithObjects:@"controls", @"methods", nil];
-    return [[NSDictionary alloc] initWithObjects:tools forKeys:toolKeys];
+    NSArray *controls = [[NSArray alloc] initWithObjects:@"repeat", @"when",@"move", @"turn", @"grow", @"shrink", @"jump", @"roll", @"spin" , nil];
+    return controls;
 }
 
 - (void)viewDidLoad
@@ -39,7 +36,7 @@
     [super viewDidLoad];
     self.toolboxView.dataSource = self;
     self.toolboxView.delegate = self;
-    // Do any additional setup after loading the view.
+     // Do any additional setup after loading the view.
 }
 
 - (void)viewDidUnload
@@ -51,54 +48,70 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+    return (interfaceOrientation == UIInterfaceOrientationIsLandscape(interfaceOrientation));
 }
+#pragma mark - UITableViewDelegate
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 52.f;
+}
+
 
 #pragma mark - UITableViewDataSource
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 2;
-}
 
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return [self.toolbox count];
+}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath  
 {
-    NSString *methodName;
+    NSString *methodName = [self.toolbox objectAtIndex:indexPath.row];
     static NSString *CellIdentifier;
-    if (indexPath.section == 0) {
+    NSString *backgroundImgFile;
+    
+    if (indexPath.row < 2) {
         CellIdentifier = @"Control";
-        NSArray *controls = [self.toolbox objectForKey:@"controls"];
-        methodName = [controls objectAtIndex:indexPath.row];
+        backgroundImgFile = @"control_icon";
     } else {
         CellIdentifier = @"Method";
-        NSArray *methods = [self.toolbox objectForKey:@"methods"];
-        methodName = [methods objectAtIndex:indexPath.row];
+        backgroundImgFile = @"method_icon";
     }
-
+    
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    cell.textLabel.text = methodName;
-    return cell;
-}
+    UIImageView *backgroundImageView;
+    UILabel *methodNameView;
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section    
-{
-    if (section == 0) {
-        return 2;
-    } else if (section == 1) {
-        return 7;
-    } else  {
-        return 0;
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
-}
+    
+    CGRect methodFrame = CGRectMake(5.f, 5.f, 142.f, 42.f);
+    cell.contentView.backgroundColor = [UIColor clearColor];               
+    
+    if (![cell.contentView viewWithTag:kbackgroundImageViewTag]) {
+        backgroundImageView = [[UIImageView alloc] initWithFrame:methodFrame];
+        backgroundImageView.tag = kbackgroundImageViewTag;
+        backgroundImageView.image = [UIImage imageNamed:backgroundImgFile];
+        [cell.contentView addSubview:backgroundImageView];
+    }
 
+    if (![cell.contentView viewWithTag:kmethodNameViewTag]) {  
+        CGRect labelFrame = CGRectMake(0.f, 0.f, 152.f, 42.f);
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-{
-    if (section == 0) {
-        return @"Controls";
+        methodNameView = [[UILabel alloc] initWithFrame:labelFrame];
+        methodNameView.textAlignment = UITextAlignmentCenter;
+        methodNameView.tag = kmethodNameViewTag;
+        methodNameView.backgroundColor = [UIColor clearColor];
+        methodNameView.textColor = [UIColor whiteColor];
+        methodNameView.font = [UIFont fontWithName:@"Helvetica" size:20.f];
+        [cell.contentView addSubview:methodNameView];
     } else {
-        return @"Methods";
+        methodNameView = (UILabel *)[cell.contentView viewWithTag:kmethodNameViewTag];
     }
+    methodNameView.text = methodName;
+    return cell;
 }
 
 @end
