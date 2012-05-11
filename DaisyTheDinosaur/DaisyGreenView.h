@@ -1,5 +1,5 @@
 //
-//  TitleLabel.h
+//  DaisyGreenView.h
 //  DaisyTheDinosaur
 //
 //  Created by Samantha John on 5/10/12.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TitleLabel : UILabel
+@interface DaisyGreenView : UIView
 
 @end

@@ -7,8 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		47222D8F155CAF04002A5790 /* UnderlineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 47222D8E155CAF04002A5790 /* UnderlineView.m */; };
-		47222D93155CAF54002A5790 /* TitleLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 47222D92155CAF54002A5790 /* TitleLabel.m */; };
+		47222D8F155CAF04002A5790 /* DaisyGreenView.m in Sources */ = {isa = PBXBuildFile; fileRef = 47222D8E155CAF04002A5790 /* DaisyGreenView.m */; };
 		47222D96155CB444002A5790 /* ProgramView.m in Sources */ = {isa = PBXBuildFile; fileRef = 47222D95155CB444002A5790 /* ProgramView.m */; };
 		47222D98155CB61D002A5790 /* daisy-bg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 47222D97155CB61D002A5790 /* daisy-bg.jpg */; };
 		47222D9B155CB8DA002A5790 /* play-active.png in Resources */ = {isa = PBXBuildFile; fileRef = 47222D99155CB8D9002A5790 /* play-active.png */; };
@@ -57,10 +56,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		47222D8D155CAF04002A5790 /* UnderlineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnderlineView.h; sourceTree = "<group>"; };
-		47222D8E155CAF04002A5790 /* UnderlineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnderlineView.m; sourceTree = "<group>"; };
-		47222D91155CAF54002A5790 /* TitleLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitleLabel.h; sourceTree = "<group>"; };
-		47222D92155CAF54002A5790 /* TitleLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TitleLabel.m; sourceTree = "<group>"; };
+		47222D8D155CAF04002A5790 /* DaisyGreenView.h */ = {isa = PBXFileReference; fileEncoding = 4; path = DaisyGreenView.h; sourceTree = "<group>"; };
+		47222D8E155CAF04002A5790 /* DaisyGreenView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DaisyGreenView.m; sourceTree = "<group>"; };
 		47222D94155CB444002A5790 /* ProgramView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgramView.h; sourceTree = "<group>"; };
 		47222D95155CB444002A5790 /* ProgramView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgramView.m; sourceTree = "<group>"; };
 		47222D97155CB61D002A5790 /* daisy-bg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "daisy-bg.jpg"; sourceTree = "<group>"; };
@@ -224,10 +221,8 @@
 				4791AC5C15572E3400A7A897 /* AppDelegate.m */,
 				47222D9D155CBB9C002A5790 /* Images */,
 				4791AC5E15572E3400A7A897 /* MainStoryboard.storyboard */,
-				47222D8D155CAF04002A5790 /* UnderlineView.h */,
-				47222D8E155CAF04002A5790 /* UnderlineView.m */,
-				47222D91155CAF54002A5790 /* TitleLabel.h */,
-				47222D92155CAF54002A5790 /* TitleLabel.m */,
+				47222D8D155CAF04002A5790 /* DaisyGreenView.h */,
+				47222D8E155CAF04002A5790 /* DaisyGreenView.m */,
 				4791AC6115572E3400A7A897 /* ViewController.h */,
 				4791AC6215572E3400A7A897 /* ViewController.m */,
 				4791AC5315572E3400A7A897 /* Supporting Files */,
@@ -350,8 +345,7 @@
 				4791AC6315572E3400A7A897 /* ViewController.m in Sources */,
 				4791AC7C1557529F00A7A897 /* FreeplayViewController.m in Sources */,
 				4791AC9B15588FD900A7A897 /* UIColor+daisy.m in Sources */,
-				47222D8F155CAF04002A5790 /* UnderlineView.m in Sources */,
-				47222D93155CAF54002A5790 /* TitleLabel.m in Sources */,
+				47222D8F155CAF04002A5790 /* DaisyGreenView.m in Sources */,
 				47222D96155CB444002A5790 /* ProgramView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

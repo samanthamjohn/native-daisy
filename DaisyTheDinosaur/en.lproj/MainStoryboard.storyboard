@@ -99,7 +99,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.84705889225006104" green="0.32549020648002625" blue="0.0" alpha="1" colorSpace="deviceRGB"/>
                             </view>
-                            <view clipsSubviews="YES" contentMode="scaleToFill" id="SGT-yr-Obo" customClass="UnderlineView">
+                            <view clipsSubviews="YES" contentMode="scaleToFill" id="SGT-yr-Obo" customClass="DaisyGreenView">
                                 <rect key="frame" x="15" y="411" width="989" height="273"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
@@ -184,6 +184,9 @@
         <image name="play.png" width="66" height="66"/>
     </resources>
     <classes>
+        <class className="DaisyGreenView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/DaisyGreenView.h"/>
+        </class>
         <class className="FreeplayViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/FreeplayViewController.h"/>
             <relationships>
@@ -192,9 +195,6 @@
         </class>
         <class className="ProgramView" superclassName="UILabel">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ProgramView.h"/>
-        </class>
-        <class className="UnderlineView" superclassName="UIView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/UnderlineView.h"/>
         </class>
         <class className="ViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ViewController.h"/>
