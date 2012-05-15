@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		471C3B281561F24800556A6C /* MethodView.m in Sources */ = {isa = PBXBuildFile; fileRef = 471C3B271561F24800556A6C /* MethodView.m */; };
 		47222D8F155CAF04002A5790 /* DaisyGreenView.m in Sources */ = {isa = PBXBuildFile; fileRef = 47222D8E155CAF04002A5790 /* DaisyGreenView.m */; };
 		47222D96155CB444002A5790 /* ProgramView.m in Sources */ = {isa = PBXBuildFile; fileRef = 47222D95155CB444002A5790 /* ProgramView.m */; };
 		47222D98155CB61D002A5790 /* daisy-bg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 47222D97155CB61D002A5790 /* daisy-bg.jpg */; };
@@ -56,7 +57,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		47222D8D155CAF04002A5790 /* DaisyGreenView.h */ = {isa = PBXFileReference; fileEncoding = 4; path = DaisyGreenView.h; sourceTree = "<group>"; };
+		471C3B261561F24800556A6C /* MethodView.h */ = {isa = PBXFileReference; fileEncoding = 4; path = MethodView.h; sourceTree = "<group>"; };
+		471C3B271561F24800556A6C /* MethodView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MethodView.m; sourceTree = "<group>"; };
+		47222D8D155CAF04002A5790 /* DaisyGreenView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DaisyGreenView.h; sourceTree = "<group>"; };
 		47222D8E155CAF04002A5790 /* DaisyGreenView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DaisyGreenView.m; sourceTree = "<group>"; };
 		47222D94155CB444002A5790 /* ProgramView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgramView.h; sourceTree = "<group>"; };
 		47222D95155CB444002A5790 /* ProgramView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgramView.m; sourceTree = "<group>"; };
@@ -221,6 +224,8 @@
 				4791AC5C15572E3400A7A897 /* AppDelegate.m */,
 				47222D9D155CBB9C002A5790 /* Images */,
 				4791AC5E15572E3400A7A897 /* MainStoryboard.storyboard */,
+				471C3B261561F24800556A6C /* MethodView.h */,
+				471C3B271561F24800556A6C /* MethodView.m */,
 				47222D8D155CAF04002A5790 /* DaisyGreenView.h */,
 				47222D8E155CAF04002A5790 /* DaisyGreenView.m */,
 				4791AC6115572E3400A7A897 /* ViewController.h */,
@@ -347,6 +352,7 @@
 				4791AC9B15588FD900A7A897 /* UIColor+daisy.m in Sources */,
 				47222D8F155CAF04002A5790 /* DaisyGreenView.m in Sources */,
 				47222D96155CB444002A5790 /* ProgramView.m in Sources */,
+				471C3B281561F24800556A6C /* MethodView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

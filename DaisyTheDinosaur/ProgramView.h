@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ProgramView : UILabel
+@interface ProgramView : UIView
 
 @end

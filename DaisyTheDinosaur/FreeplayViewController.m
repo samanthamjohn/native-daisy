@@ -8,13 +8,22 @@
 
 #import "FreeplayViewController.h"
 
-@interface FreeplayViewController ()
-
+@interface FreeplayViewController () <UIGestureRecognizerDelegate>
+@property (nonatomic, strong) MethodView *viewBeingDragged;
+@property (nonatomic) CGPoint dragOffset;
+@property (nonatomic, strong) NSString *backgroundImgFileBeingDragged;
+@property (nonatomic, strong) NSString *methodNameBeingDragged;
 @end
 
 @implementation FreeplayViewController
 @synthesize toolboxView = _toolboxView;
 @synthesize toolbox = _toolbox;
+@synthesize programView = _programView;
+@synthesize viewBeingDragged = _viewBeingDragged;
+@synthesize dragOffset = _dragOffset;
+@synthesize methodNameBeingDragged = _methodNameBeingDragged;
+@synthesize backgroundImgFileBeingDragged = _backgroundImgFileBeingDragged;
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -42,14 +51,27 @@
 - (void)viewDidUnload
 {
     [self setToolboxView:nil];
+    [self setProgramView:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
 
+- (MethodView *)viewBeingDragged
+{
+    if (_viewBeingDragged)
+    {
+        return _viewBeingDragged;
+    } else {
+        self.viewBeingDragged = [[MethodView alloc] initWithFrame:CGRectMake(0.f, 0.f, 152.f, 42.f) withName:@"turn" withBackgroundImageFile:@"method_icon"];
+        [self.view addSubview:self.viewBeingDragged];
+        return self.viewBeingDragged;
+    }
+}
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationIsLandscape(interfaceOrientation));
 }
+
 #pragma mark - UITableViewDelegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -80,38 +102,65 @@
     }
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    UIImageView *backgroundImageView;
-    UILabel *methodNameView;
-
+    MethodView *methodView = [[MethodView alloc] initWithFrame:CGRectMake(0.f, 0.f, 152.f, 42.f) withName:methodName withBackgroundImageFile:backgroundImgFile];
+  
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
-    CGRect methodFrame = CGRectMake(5.f, 5.f, 142.f, 42.f);
-    cell.contentView.backgroundColor = [UIColor clearColor];               
-    
-    if (![cell.contentView viewWithTag:kbackgroundImageViewTag]) {
-        backgroundImageView = [[UIImageView alloc] initWithFrame:methodFrame];
-        backgroundImageView.tag = kbackgroundImageViewTag;
-        backgroundImageView.image = [UIImage imageNamed:backgroundImgFile];
-        [cell.contentView addSubview:backgroundImageView];
-    }
+    cell.contentView.backgroundColor = [UIColor clearColor];   
+    [cell.contentView addSubview:methodView];
+  
+    UISwipeGestureRecognizer *swipeGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:nil];
+    UIPanGestureRecognizer *gesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panFromToolbox:)];
+    swipeGesture.delegate = self;
+    gesture.delegate = self;
+    [cell addGestureRecognizer:swipeGesture];
+    [cell addGestureRecognizer:gesture];
 
-    if (![cell.contentView viewWithTag:kmethodNameViewTag]) {  
-        CGRect labelFrame = CGRectMake(0.f, 0.f, 152.f, 42.f);
-
-        methodNameView = [[UILabel alloc] initWithFrame:labelFrame];
-        methodNameView.textAlignment = UITextAlignmentCenter;
-        methodNameView.tag = kmethodNameViewTag;
-        methodNameView.backgroundColor = [UIColor clearColor];
-        methodNameView.textColor = [UIColor whiteColor];
-        methodNameView.font = [UIFont fontWithName:@"Helvetica" size:20.f];
-        [cell.contentView addSubview:methodNameView];
-    } else {
-        methodNameView = (UILabel *)[cell.contentView viewWithTag:kmethodNameViewTag];
-    }
-    methodNameView.text = methodName;
     return cell;
 }
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+{
+    if (self.viewBeingDragged) {
+        return NO;
+    } else {
+        return YES;
+    }
+}
+
+- (void)panFromToolbox:(UIPanGestureRecognizer *)pan
+{
+    
+    CGPoint point = [pan locationInView:self.view];
+    
+    if (pan.state == UIGestureRecognizerStateBegan) {
+        CGPoint touchLocation = [pan locationOfTouch:0 inView:self.view];
+        CGPoint methodCenter = pan.view.center;
+        self.dragOffset = CGPointMake(methodCenter.x - touchLocation.x, methodCenter.y - touchLocation.y);
+    }
+    else if (pan.state == UIGestureRecognizerStateChanged) 
+    {
+        self.viewBeingDragged.center = CGPointMake(point.x + self.dragOffset.x, point.y + self.dragOffset.y);
+        self.viewBeingDragged.center = point;
+        
+    } else if (pan.state == UIGestureRecognizerStateEnded || pan.state == UIGestureRecognizerStateCancelled ||pan.state == UIGestureRecognizerStateFailed) {
+        [self.viewBeingDragged removeFromSuperview];
+        
+        CGPoint programPoint = [self.programView convertPoint:point fromView:self.view];
+        if ([self.programView pointInside:programPoint withEvent:nil]) 
+        {
+           // [self.viewBeingDragged addGestureRecognizer:[[UIPanGestureRecognizer alloc]  initWithTarget:self action:@selector(dragFromProgramView:)]];
+            self.viewBeingDragged.center = CGPointMake(programPoint.x + self.dragOffset.x, programPoint.y + self.dragOffset.y);
+            
+            [self.programView addSubview:self.viewBeingDragged];
+            
+        }
+        
+        self.viewBeingDragged = nil;
+    }
+
+ }
 
 @end

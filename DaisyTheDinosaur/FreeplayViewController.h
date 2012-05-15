@@ -8,12 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "UIColor+daisy.h"
-enum CellViewTag {
-    kbackgroundImageViewTag = 2047,
-    kmethodNameViewTag = 2048
-};
+#import "MethodView.h"
+#import "ProgramView.h"
 
 @interface FreeplayViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *toolboxView;
 @property (strong, nonatomic) NSArray *toolbox;
+@property (weak, nonatomic) IBOutlet ProgramView *programView;
 @end

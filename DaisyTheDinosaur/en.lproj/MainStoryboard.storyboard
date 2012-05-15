@@ -19,7 +19,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="1024" height="704"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="8lt-zL-Gou">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="8lt-zL-Gou">
                                 <rect key="frame" x="73" y="334" width="224" height="275"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
@@ -34,7 +34,7 @@
                                     <segue destination="tjf-Lp-fNG" kind="push" identifier="Challenge Segue" id="72L-bq-hy2"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="1E8-d1-AyF">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="1E8-d1-AyF">
                                 <rect key="frame" x="363" y="334" width="219" height="270"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
@@ -133,6 +133,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="cIz-A8-FDC"/>
                     <connections>
+                        <outlet property="programView" destination="X5t-kY-bC8" id="ghe-Ps-Y9v"/>
                         <outlet property="toolboxView" destination="iCf-go-4bf" id="vhw-xG-lIJ"/>
                     </connections>
                 </viewController>
@@ -183,23 +184,6 @@
         <image name="play-active.png" width="66" height="66"/>
         <image name="play.png" width="66" height="66"/>
     </resources>
-    <classes>
-        <class className="DaisyGreenView" superclassName="UIView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/DaisyGreenView.h"/>
-        </class>
-        <class className="FreeplayViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/FreeplayViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="toolboxView" candidateClass="UITableView"/>
-            </relationships>
-        </class>
-        <class className="ProgramView" superclassName="UILabel">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ProgramView.h"/>
-        </class>
-        <class className="ViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ViewController.h"/>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackTranslucent"/>
         <simulatedOrientationMetrics key="orientation" orientation="landscapeRight"/>
