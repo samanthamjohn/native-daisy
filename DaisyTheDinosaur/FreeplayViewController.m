@@ -136,13 +136,15 @@
     CGPoint point = [pan locationInView:self.view];
     
     if (pan.state == UIGestureRecognizerStateBegan) {
-        CGPoint touchLocation = [pan locationOfTouch:0 inView:self.view];
-        CGPoint methodCenter = pan.view.center;
-        self.dragOffset = CGPointMake(methodCenter.x - touchLocation.x, methodCenter.y - touchLocation.y);
+//        CGPoint touchLocation = [pan locationOfTouch:0 inView:self.view];
+//        CGPoint methodCenter = pan.view.center;
+//        self.dragOffset = CGPointMake(methodCenter.x - touchLocation.x, methodCenter.y - touchLocation.y);
+//        self.viewBeingDragged.center = CGPointMake(point.x + self.dragOffset.x, point.y + self.dragOffset.y);
+        self.viewBeingDragged.center = point;
     }
     else if (pan.state == UIGestureRecognizerStateChanged) 
     {
-        self.viewBeingDragged.center = CGPointMake(point.x + self.dragOffset.x, point.y + self.dragOffset.y);
+//        self.viewBeingDragged.center = CGPointMake(point.x + self.dragOffset.x, point.y + self.dragOffset.y);
         self.viewBeingDragged.center = point;
         
     } else if (pan.state == UIGestureRecognizerStateEnded || pan.state == UIGestureRecognizerStateCancelled ||pan.state == UIGestureRecognizerStateFailed) {
