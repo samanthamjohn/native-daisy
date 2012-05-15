@@ -137,16 +137,14 @@
             self.backgroundImgFileBeingDragged = ((MethodView *)pan.view).backgroundImgFile;
         }
 
-//        CGPoint touchLocation = [pan locationOfTouch:0 inView:self.view];
-//        CGPoint methodCenter = pan.view.center;
-//        self.dragOffset = CGPointMake(methodCenter.x - touchLocation.x, methodCenter.y - touchLocation.y);
-//        self.viewBeingDragged.center = CGPointMake(point.x + self.dragOffset.x, point.y + self.dragOffset.y);
-        self.viewBeingDragged.center = point;
+        CGPoint touchLocation = [pan locationOfTouch:0 inView:self.view];
+        CGPoint methodCenter = [pan.view.superview convertPoint:pan.view.center toView:self.view];
+        self.dragOffset = CGPointMake(methodCenter.x - touchLocation.x, methodCenter.y - touchLocation.y);
+        self.viewBeingDragged.center = CGPointMake(point.x + self.dragOffset.x, point.y + self.dragOffset.y);
     }
     else if (pan.state == UIGestureRecognizerStateChanged) 
     {
-//        self.viewBeingDragged.center = CGPointMake(point.x + self.dragOffset.x, point.y + self.dragOffset.y);
-        self.viewBeingDragged.center = point;
+        self.viewBeingDragged.center = CGPointMake(point.x + self.dragOffset.x, point.y + self.dragOffset.y);
         
     } else if (pan.state == UIGestureRecognizerStateEnded || pan.state == UIGestureRecognizerStateCancelled ||pan.state == UIGestureRecognizerStateFailed) {
         [self.viewBeingDragged removeFromSuperview];
