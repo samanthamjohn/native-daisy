@@ -9,6 +9,8 @@
 #import "MethodView.h"
 
 @implementation MethodView
+@synthesize name = _name;
+@synthesize backgroundImgFile = _backgroundImgFile;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -21,10 +23,13 @@
 
 - (id)initWithFrame:(CGRect)frame withName:(NSString *)name withBackgroundImageFile:(NSString *)backgroundImgFile;
 {
+    self.backgroundImgFile = backgroundImgFile;
+    self.name = name;
     
     self = [super initWithFrame:frame];
     UIImageView *backgroundImageView;
     UILabel *methodNameView;
+    
     
     
     if (self) {

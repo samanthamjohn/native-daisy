@@ -58,14 +58,11 @@
 
 - (MethodView *)viewBeingDragged
 {
-    if (_viewBeingDragged)
-    {
-        return _viewBeingDragged;
-    } else {
-        self.viewBeingDragged = [[MethodView alloc] initWithFrame:CGRectMake(0.f, 0.f, 152.f, 42.f) withName:@"turn" withBackgroundImageFile:@"method_icon"];
+    if(!_viewBeingDragged && self.methodNameBeingDragged && self.backgroundImgFileBeingDragged) {
+         _viewBeingDragged = [[MethodView alloc] initWithFrame:CGRectMake(0.f, 0.f, 152.f, 42.f) withName:self.methodNameBeingDragged withBackgroundImageFile:self.backgroundImgFileBeingDragged];
         [self.view addSubview:self.viewBeingDragged];
-        return self.viewBeingDragged;
-    }
+    } 
+    return _viewBeingDragged;
 }
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
@@ -115,8 +112,8 @@
     UIPanGestureRecognizer *gesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panFromToolbox:)];
     swipeGesture.delegate = self;
     gesture.delegate = self;
-    [cell addGestureRecognizer:swipeGesture];
-    [cell addGestureRecognizer:gesture];
+    [methodView addGestureRecognizer:swipeGesture];
+    [methodView addGestureRecognizer:gesture];
 
     return cell;
 }
@@ -132,10 +129,14 @@
 
 - (void)panFromToolbox:(UIPanGestureRecognizer *)pan
 {
-    
     CGPoint point = [pan locationInView:self.view];
-    
     if (pan.state == UIGestureRecognizerStateBegan) {
+        if ([pan.view isKindOfClass:[MethodView class]])
+        {
+            self.methodNameBeingDragged = ((MethodView *)pan.view).name;
+            self.backgroundImgFileBeingDragged = ((MethodView *)pan.view).backgroundImgFile;
+        }
+
 //        CGPoint touchLocation = [pan locationOfTouch:0 inView:self.view];
 //        CGPoint methodCenter = pan.view.center;
 //        self.dragOffset = CGPointMake(methodCenter.x - touchLocation.x, methodCenter.y - touchLocation.y);
@@ -159,7 +160,8 @@
             [self.programView addSubview:self.viewBeingDragged];
             
         }
-        
+        self.backgroundImgFileBeingDragged = nil;
+        self.methodNameBeingDragged = nil;
         self.viewBeingDragged = nil;
     }
 
