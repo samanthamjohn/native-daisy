@@ -58,6 +58,8 @@
     self.toolboxView.dataSource = self;
     self.toolboxView.delegate = self;
     self.programTableView.dataSource = self;
+    self.programTableView.delegate = self;
+    [self.programTableView setEditing:YES];
 }
 
 - (void)viewDidUnload
@@ -183,7 +185,14 @@
         [self.viewBeingDragged removeFromSuperview];
         
         CGPoint programPoint = [self.programView convertPoint:point fromView:self.view];
-        if ([self.programView pointInside:programPoint withEvent:nil]) 
+        CGPoint programTablePoint = [self.programTableView convertPoint:point fromView:self.view];
+        if ([self.programTableView pointInside:programTablePoint withEvent:nil]) {
+            NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys: self.methodNameBeingDragged, @"methodName", self.backgroundImgFileBeingDragged, @"backgroundImgFile", nil];
+            
+            [self.scripts addObject:dict];            
+            [self.programTableView reloadData];
+        }
+        else if ([self.programView pointInside:programPoint withEvent:nil]) 
         {
            // [self.viewBeingDragged addGestureRecognizer:[[UIPanGestureRecognizer alloc]  initWithTarget:self action:@selector(dragFromProgramView:)]];
             //self.viewBeingDragged.center = CGPointMake(programPoint.x + self.dragOffset.x, programPoint.y + self.dragOffset.y);
@@ -200,5 +209,46 @@
     }
 
  }
+
+- (BOOL) tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (tableView == self.programTableView) {
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
+- (UITableViewCellEditingStyle) tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return UITableViewCellEditingStyleNone;
+}
+
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
+{
+    if (tableView == self.programTableView)
+    {
+        NSLog(@"================> from: %d to: %d", fromIndexPath.row, toIndexPath.row);
+
+
+        int size = self.scripts.count;
+        if (size > 0)
+        {
+
+            id movingObject = [self.scripts objectAtIndex:fromIndexPath.row];            
+            [self.scripts objectAtIndex:toIndexPath.row];
+            NSMutableArray *newArray = [[NSMutableArray alloc] initWithObjects:nil];
+            for (int i=0; i <= (self.scripts.count - 1); i++) {
+                if (i == toIndexPath.row)
+                {
+                    [newArray addObject:movingObject];
+                } else {
+                    [newArray addObject:[self.scripts objectAtIndex:i]];
+                }
+            }
+            self.scripts = newArray;
+        }
+    }
+}
 
 @end
