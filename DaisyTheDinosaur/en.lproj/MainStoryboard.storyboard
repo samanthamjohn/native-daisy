@@ -97,6 +97,34 @@
                             <view contentMode="scaleToFill" id="X5t-kY-bC8" customClass="ProgramView">
                                 <rect key="frame" x="207" y="20" width="712" height="383"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <tableView clipsSubviews="YES" contentMode="center" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="KuD-Td-TyF">
+                                        <rect key="frame" x="0.0" y="0.0" width="165.5" height="383"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <prototypes>
+                                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Control" id="Afq-fh-Qzh">
+                                                <rect key="frame" x="0.0" y="22" width="165.5" height="44"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                                    <rect key="frame" x="0.0" y="0.0" width="165.5" height="43"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                </view>
+                                            </tableViewCell>
+                                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Method" id="pUa-86-K5c">
+                                                <rect key="frame" x="0.0" y="66" width="165.5" height="44"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                                    <rect key="frame" x="0.0" y="0.0" width="165.5" height="43"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                </view>
+                                            </tableViewCell>
+                                        </prototypes>
+                                        <sections/>
+                                    </tableView>
+                                </subviews>
                                 <color key="backgroundColor" red="0.84705889225006104" green="0.32549020648002625" blue="0.0" alpha="1" colorSpace="deviceRGB"/>
                             </view>
                             <view clipsSubviews="YES" contentMode="scaleToFill" id="SGT-yr-Obo" customClass="DaisyGreenView">
@@ -133,6 +161,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="cIz-A8-FDC"/>
                     <connections>
+                        <outlet property="programTableView" destination="KuD-Td-TyF" id="evX-nB-p3g"/>
                         <outlet property="programView" destination="X5t-kY-bC8" id="ghe-Ps-Y9v"/>
                         <outlet property="toolboxView" destination="iCf-go-4bf" id="vhw-xG-lIJ"/>
                     </connections>
@@ -184,6 +213,25 @@
         <image name="play-active.png" width="66" height="66"/>
         <image name="play.png" width="66" height="66"/>
     </resources>
+    <classes>
+        <class className="DaisyGreenView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/DaisyGreenView.h"/>
+        </class>
+        <class className="FreeplayViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FreeplayViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="programTableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="programView" candidateClass="ProgramView"/>
+                <relationship kind="outlet" name="toolboxView" candidateClass="UITableView"/>
+            </relationships>
+        </class>
+        <class className="ProgramView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ProgramView.h"/>
+        </class>
+        <class className="ViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ViewController.h"/>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackTranslucent"/>
         <simulatedOrientationMetrics key="orientation" orientation="landscapeRight"/>

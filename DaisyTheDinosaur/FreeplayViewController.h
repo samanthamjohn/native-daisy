@@ -13,6 +13,8 @@
 
 @interface FreeplayViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *toolboxView;
-@property (strong, nonatomic) NSArray *toolbox;
+@property (weak, nonatomic) IBOutlet UITableView *programTableView;
+@property (strong, nonatomic, readonly) NSArray *toolbox;
+@property (strong, nonatomic) NSMutableArray *scripts;
 @property (weak, nonatomic) IBOutlet ProgramView *programView;
 @end

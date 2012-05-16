@@ -17,12 +17,14 @@
 
 @implementation FreeplayViewController
 @synthesize toolboxView = _toolboxView;
-@synthesize toolbox = _toolbox;
+@synthesize programTableView = _programTableView;
 @synthesize programView = _programView;
 @synthesize viewBeingDragged = _viewBeingDragged;
 @synthesize dragOffset = _dragOffset;
 @synthesize methodNameBeingDragged = _methodNameBeingDragged;
 @synthesize backgroundImgFileBeingDragged = _backgroundImgFileBeingDragged;
+@synthesize scripts = _scripts;
+@synthesize toolbox = _toolbox;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -36,22 +38,33 @@
 
 - (NSArray *)toolbox
 {
-    NSArray *controls = [[NSArray alloc] initWithObjects:@"repeat", @"when",@"move", @"turn", @"grow", @"shrink", @"jump", @"roll", @"spin" , nil];
-    return controls;
+    if (!_toolbox)
+    {
+        _toolbox = [[NSArray alloc] initWithObjects:@"repeat", @"when",@"move", @"turn", @"grow", @"shrink", @"jump", @"roll", @"spin" , nil];
+    }
+    return _toolbox;
 }
 
+- (NSMutableArray *)scripts
+{
+    if (!_scripts) {
+        _scripts = [[NSMutableArray alloc] initWithObjects:nil, nil];
+    }
+    return _scripts;
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     self.toolboxView.dataSource = self;
     self.toolboxView.delegate = self;
-     // Do any additional setup after loading the view.
+    self.programTableView.dataSource = self;
 }
 
 - (void)viewDidUnload
 {
     [self setToolboxView:nil];
     [self setProgramView:nil];
+    [self setProgramTableView:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
@@ -81,23 +94,42 @@
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.toolbox count];
+    if (tableView == self.toolboxView) {
+        return [self.toolbox count];        
+    } else if (tableView == self.programTableView) {
+        return [self.scripts count];
+    } else {
+        return 0;
+    }
+    
+
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath  
 {
-    NSString *methodName = [self.toolbox objectAtIndex:indexPath.row];
     static NSString *CellIdentifier;
+    NSString *methodName;
     NSString *backgroundImgFile;
-    
-    if (indexPath.row < 2) {
-        CellIdentifier = @"Control";
-        backgroundImgFile = @"control_icon";
+    if (tableView == self.toolboxView) {
+        methodName = [self.toolbox objectAtIndex:indexPath.row];        
+        if (indexPath.row < 2) {
+            CellIdentifier = @"Control";
+            backgroundImgFile = @"control_icon";
+        } else {
+            CellIdentifier = @"Method";
+            backgroundImgFile = @"method_icon";
+        }
     } else {
-        CellIdentifier = @"Method";
-        backgroundImgFile = @"method_icon";
+        NSDictionary *method = [self.scripts objectAtIndex:indexPath.row];
+        methodName = [method objectForKey:@"methodName"];
+        backgroundImgFile = [method objectForKey:@"backgroundImgFile"];
+        if (backgroundImgFile == @"control_icon") {
+            CellIdentifier = @"Control";
+        } else {
+            CellIdentifier = @"Method";
+        }
     }
-    
+        
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     MethodView *methodView = [[MethodView alloc] initWithFrame:CGRectMake(0.f, 0.f, 152.f, 42.f) withName:methodName withBackgroundImageFile:backgroundImgFile];
   
@@ -107,14 +139,14 @@
     
     cell.contentView.backgroundColor = [UIColor clearColor];   
     [cell.contentView addSubview:methodView];
-  
-    UISwipeGestureRecognizer *swipeGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:nil];
-    UIPanGestureRecognizer *gesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panFromToolbox:)];
-    swipeGesture.delegate = self;
-    gesture.delegate = self;
-    [methodView addGestureRecognizer:swipeGesture];
-    [methodView addGestureRecognizer:gesture];
-
+    if (tableView == self.toolboxView) {
+        UISwipeGestureRecognizer *swipeGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:nil];
+        UIPanGestureRecognizer *gesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panFromToolbox:)];
+        swipeGesture.delegate = self;
+        gesture.delegate = self;
+        [methodView addGestureRecognizer:swipeGesture];
+        [methodView addGestureRecognizer:gesture];
+    }
     return cell;
 }
 
@@ -141,6 +173,7 @@
         CGPoint methodCenter = [pan.view.superview convertPoint:pan.view.center toView:self.view];
         self.dragOffset = CGPointMake(methodCenter.x - touchLocation.x, methodCenter.y - touchLocation.y);
         self.viewBeingDragged.center = CGPointMake(point.x + self.dragOffset.x, point.y + self.dragOffset.y);
+        [self.programView setBackgroundColor:[UIColor lightGrayColor]];
     }
     else if (pan.state == UIGestureRecognizerStateChanged) 
     {
@@ -153,14 +186,17 @@
         if ([self.programView pointInside:programPoint withEvent:nil]) 
         {
            // [self.viewBeingDragged addGestureRecognizer:[[UIPanGestureRecognizer alloc]  initWithTarget:self action:@selector(dragFromProgramView:)]];
-            self.viewBeingDragged.center = CGPointMake(programPoint.x + self.dragOffset.x, programPoint.y + self.dragOffset.y);
+            //self.viewBeingDragged.center = CGPointMake(programPoint.x + self.dragOffset.x, programPoint.y + self.dragOffset.y);
+            //[self.programView addSubview:self.viewBeingDragged];
+            NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys: self.methodNameBeingDragged, @"methodName", self.backgroundImgFileBeingDragged, @"backgroundImgFile", nil];
             
-            [self.programView addSubview:self.viewBeingDragged];
-            
+            [self.scripts addObject:dict];            
+            [self.programTableView reloadData];
         }
         self.backgroundImgFileBeingDragged = nil;
         self.methodNameBeingDragged = nil;
         self.viewBeingDragged = nil;
+        [self.programView setBackgroundColor:[UIColor daisyProgramGrayColor]];
     }
 
  }
