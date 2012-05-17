@@ -54,10 +54,12 @@
 		4791AC8F15586C2C00A7A897 /* method_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4791AC8D15586C2C00A7A897 /* method_icon.png */; };
 		4791AC9B15588FD900A7A897 /* UIColor+daisy.m in Sources */ = {isa = PBXBuildFile; fileRef = 4791AC9A15588FD900A7A897 /* UIColor+daisy.m */; };
 		4791AC9D155893CC00A7A897 /* Museo_Slab_500.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4791AC9C155893CC00A7A897 /* Museo_Slab_500.otf */; };
+		47FC0A1015643F49007F1A8A /* ScriptViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 47FC0A0F15643F49007F1A8A /* ScriptViewCell.m */; };
+		47FC0A14156456D9007F1A8A /* DaisyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 47FC0A13156456D8007F1A8A /* DaisyCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		471C3B261561F24800556A6C /* MethodView.h */ = {isa = PBXFileReference; fileEncoding = 4; path = MethodView.h; sourceTree = "<group>"; };
+		471C3B261561F24800556A6C /* MethodView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MethodView.h; sourceTree = "<group>"; };
 		471C3B271561F24800556A6C /* MethodView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MethodView.m; sourceTree = "<group>"; };
 		47222D8D155CAF04002A5790 /* DaisyGreenView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DaisyGreenView.h; sourceTree = "<group>"; };
 		47222D8E155CAF04002A5790 /* DaisyGreenView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DaisyGreenView.m; sourceTree = "<group>"; };
@@ -114,6 +116,10 @@
 		4791AC9915588FD800A7A897 /* UIColor+daisy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+daisy.h"; sourceTree = "<group>"; };
 		4791AC9A15588FD900A7A897 /* UIColor+daisy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+daisy.m"; sourceTree = "<group>"; };
 		4791AC9C155893CC00A7A897 /* Museo_Slab_500.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Museo_Slab_500.otf; sourceTree = "<group>"; };
+		47FC0A0E15643F49007F1A8A /* ScriptViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScriptViewCell.h; sourceTree = "<group>"; };
+		47FC0A0F15643F49007F1A8A /* ScriptViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScriptViewCell.m; sourceTree = "<group>"; };
+		47FC0A12156456D8007F1A8A /* DaisyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DaisyCell.h; sourceTree = "<group>"; };
+		47FC0A13156456D8007F1A8A /* DaisyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DaisyCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -216,6 +222,10 @@
 		4791AC5215572E3400A7A897 /* DaisyTheDinosaur */ = {
 			isa = PBXGroup;
 			children = (
+				47FC0A12156456D8007F1A8A /* DaisyCell.h */,
+				47FC0A13156456D8007F1A8A /* DaisyCell.m */,
+				47FC0A0E15643F49007F1A8A /* ScriptViewCell.h */,
+				47FC0A0F15643F49007F1A8A /* ScriptViewCell.m */,
 				47222D94155CB444002A5790 /* ProgramView.h */,
 				47222D95155CB444002A5790 /* ProgramView.m */,
 				4791AC7A1557529F00A7A897 /* FreeplayViewController.h */,
@@ -353,6 +363,8 @@
 				47222D8F155CAF04002A5790 /* DaisyGreenView.m in Sources */,
 				47222D96155CB444002A5790 /* ProgramView.m in Sources */,
 				471C3B281561F24800556A6C /* MethodView.m in Sources */,
+				47FC0A1015643F49007F1A8A /* ScriptViewCell.m in Sources */,
+				47FC0A14156456D9007F1A8A /* DaisyCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

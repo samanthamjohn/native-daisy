@@ -10,6 +10,7 @@
 #import "UIColor+daisy.h"
 #import "MethodView.h"
 #import "ProgramView.h"
+#import "ScriptViewCell.h"
 
 @interface FreeplayViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *toolboxView;

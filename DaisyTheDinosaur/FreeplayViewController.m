@@ -133,22 +133,32 @@
     }
         
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    MethodView *methodView = [[MethodView alloc] initWithFrame:CGRectMake(0.f, 0.f, 152.f, 42.f) withName:methodName withBackgroundImageFile:backgroundImgFile];
-  
+    
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        if (tableView == self.programTableView)
+        {
+            cell = [[ScriptViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];   
+        } else {
+            cell = [[DaisyCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        }
     }
     
-    cell.contentView.backgroundColor = [UIColor clearColor];   
-    [cell.contentView addSubview:methodView];
-    if (tableView == self.toolboxView) {
+    if (tableView == self.programTableView) 
+    {
+        cell = (ScriptViewCell *)cell;
+        [(ScriptViewCell *)cell addSubviewsWithMethodName:methodName backgroundImageFile:backgroundImgFile];
+    } else {
+        cell = (DaisyCell *)cell;
+        [(DaisyCell *)cell addSubviewsWithMethodName:methodName backgroundImageFile:backgroundImgFile];
         UISwipeGestureRecognizer *swipeGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:nil];
         UIPanGestureRecognizer *gesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panFromToolbox:)];
         swipeGesture.delegate = self;
         gesture.delegate = self;
-        [methodView addGestureRecognizer:swipeGesture];
-        [methodView addGestureRecognizer:gesture];
+        [[(DaisyCell *)cell methodView] addGestureRecognizer:swipeGesture];
+        [[(DaisyCell *)cell methodView] addGestureRecognizer:gesture];
     }
+    if (tableView == self.toolboxView) {
+           }
     return cell;
 }
 
@@ -224,17 +234,18 @@
     return UITableViewCellEditingStyleNone;
 }
 
+- (BOOL) tableView:(UITableView *)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return NO;
+}
+
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
 {
     if (tableView == self.programTableView)
     {
-        NSLog(@"================> from: %d to: %d", fromIndexPath.row, toIndexPath.row);
-
-
         int size = self.scripts.count;
         if (size > 0)
         {
-
             id movingObject = [self.scripts objectAtIndex:fromIndexPath.row];            
             [self.scripts objectAtIndex:toIndexPath.row];
             NSMutableArray *newArray = [[NSMutableArray alloc] initWithObjects:nil];
