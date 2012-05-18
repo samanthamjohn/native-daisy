@@ -157,8 +157,6 @@
         [[(DaisyCell *)cell methodView] addGestureRecognizer:swipeGesture];
         [[(DaisyCell *)cell methodView] addGestureRecognizer:gesture];
     }
-    if (tableView == self.toolboxView) {
-           }
     return cell;
 }
 
