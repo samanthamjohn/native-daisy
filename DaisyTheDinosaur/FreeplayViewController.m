@@ -105,6 +105,55 @@
     return 52.f;
 }
 
+- (UITableViewCellEditingStyle) tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return UITableViewCellEditingStyleNone;
+}
+
+- (BOOL) tableView:(UITableView *)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return NO;
+}
+
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    for (UIControl *control in cell.subviews)
+    {       
+        
+        if ([control isMemberOfClass:NSClassFromString(@"UITableViewCellReorderControl")] && [control.subviews count] > 0)
+        {        
+            UIView* resizedGripView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetMaxX(control.frame), CGRectGetMaxY(control.frame))];
+            
+            [resizedGripView addSubview:control];
+            [cell addSubview:resizedGripView];
+            
+            CGSize sizeDifference = CGSizeMake(resizedGripView.frame.size.width - control.frame.size.width, resizedGripView.frame.size.height - control.frame.size.height);
+            CGSize transformRatio = CGSizeMake(resizedGripView.frame.size.width / control.frame.size.width, resizedGripView.frame.size.height / control.frame.size.height);
+            
+            //	Original transform
+            CGAffineTransform transform = CGAffineTransformIdentity;
+            
+            //	Scale custom view so grip will fill entire cell
+            transform = CGAffineTransformScale(transform, transformRatio.width, transformRatio.height);
+            
+            //	Move custom view so the grip's top left aligns with the cell's top left
+            transform = CGAffineTransformTranslate(transform, -sizeDifference.width / 2.0, -sizeDifference.height / 2.0);
+            
+            [resizedGripView setTransform:transform];
+            
+            
+            for (id someObj in control.subviews)
+            {
+                if ([someObj isMemberOfClass:[UIImageView class]])
+                {
+                    ((UIImageView*)someObj).image = nil;
+                }
+            }
+            
+        }
+    }   
+}
 
 #pragma mark - UITableViewDataSource
 
@@ -175,6 +224,42 @@
     return cell;
 }
 
+
+- (BOOL) tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (tableView == self.programTableView) {
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
+{
+    if (tableView == self.programTableView)
+    {
+        int size = self.scripts.count;
+        if (size > 0)
+        {
+            id movingObject = [self.scripts objectAtIndex:fromIndexPath.row];            
+            [self.scripts objectAtIndex:toIndexPath.row];
+            NSMutableArray *newArray = [[NSMutableArray alloc] initWithObjects:nil];
+            for (int i=0; i <= (self.scripts.count - 1); i++) {
+                if (i == toIndexPath.row)
+                {
+                    [newArray addObject:movingObject];
+                } else {
+                    [newArray addObject:[self.scripts objectAtIndex:i]];
+                }
+            }
+            self.scripts = newArray;
+        }
+    }
+}
+
+
+#pragma mark UIGestureRecognizerDelegate
+
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
 {
     if (self.viewBeingDragged) {
@@ -184,53 +269,53 @@
     }
 }
 
-- (void)dragFromProgramView:(UIPanGestureRecognizer *)pan
-{
-    CGPoint point = [pan locationInView:self.view];
-    if (pan.state == UIGestureRecognizerStateBegan) {
-        if ([pan.view isKindOfClass:[MethodView class]])
-        {
-            self.methodNameBeingDragged = ((MethodView *)pan.view).name;
-            self.backgroundImgFileBeingDragged = ((MethodView *)pan.view).backgroundImgFile;
-        }
-        
-        CGPoint touchLocation = [pan locationOfTouch:0 inView:self.view];
-        CGPoint methodCenter = [pan.view.superview convertPoint:pan.view.center toView:self.view];
-        self.dragOffset = CGPointMake(methodCenter.x - touchLocation.x, methodCenter.y - touchLocation.y);
-        self.viewBeingDragged.center = CGPointMake(point.x + self.dragOffset.x, point.y + self.dragOffset.y);
-        [self.programView setBackgroundColor:[UIColor lightGrayColor]];
-    }
-    else if (pan.state == UIGestureRecognizerStateChanged) 
-    {
-        self.viewBeingDragged.center = CGPointMake(point.x + self.dragOffset.x, point.y + self.dragOffset.y);
-        
-    } else if (pan.state == UIGestureRecognizerStateEnded || pan.state == UIGestureRecognizerStateCancelled ||pan.state == UIGestureRecognizerStateFailed) {
-        [self.viewBeingDragged removeFromSuperview];
-        
-        CGPoint programPoint = [self.programView convertPoint:point fromView:self.view];
-        CGPoint programTablePoint = [self.programTableView convertPoint:point fromView:self.view];
-        if ([self.programTableView pointInside:programTablePoint withEvent:nil]) {
-            NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys: self.methodNameBeingDragged, @"methodName", self.backgroundImgFileBeingDragged, @"backgroundImgFile", nil];
-            
-            [self.scripts addObject:dict];            
-            [self.programTableView reloadData];
-        }
-        else if ([self.programView pointInside:programPoint withEvent:nil]) 
-        {
-            [self.viewBeingDragged addGestureRecognizer:[[UIPanGestureRecognizer alloc]  initWithTarget:self action:@selector(dragFromProgramView:)]];
-            NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys: self.methodNameBeingDragged, @"methodName", self.backgroundImgFileBeingDragged, @"backgroundImgFile", nil];
-            
-            [self.scripts addObject:dict];            
-            [self.programTableView reloadData];
-        }
-        self.backgroundImgFileBeingDragged = nil;
-        self.methodNameBeingDragged = nil;
-        self.viewBeingDragged = nil;
-        [self.programView setBackgroundColor:[UIColor daisyProgramGrayColor]];
-    }
-    
-
-}
+//- (void)dragFromProgramView:(UIPanGestureRecognizer *)pan
+//{
+//    CGPoint point = [pan locationInView:self.view];
+//    if (pan.state == UIGestureRecognizerStateBegan) {
+//        if ([pan.view isKindOfClass:[MethodView class]])
+//        {
+//            self.methodNameBeingDragged = ((MethodView *)pan.view).name;
+//            self.backgroundImgFileBeingDragged = ((MethodView *)pan.view).backgroundImgFile;
+//        }
+//        
+//        CGPoint touchLocation = [pan locationOfTouch:0 inView:self.view];
+//        CGPoint methodCenter = [pan.view.superview convertPoint:pan.view.center toView:self.view];
+//        self.dragOffset = CGPointMake(methodCenter.x - touchLocation.x, methodCenter.y - touchLocation.y);
+//        self.viewBeingDragged.center = CGPointMake(point.x + self.dragOffset.x, point.y + self.dragOffset.y);
+//        [self.programView setBackgroundColor:[UIColor lightGrayColor]];
+//    }
+//    else if (pan.state == UIGestureRecognizerStateChanged) 
+//    {
+//        self.viewBeingDragged.center = CGPointMake(point.x + self.dragOffset.x, point.y + self.dragOffset.y);
+//        
+//    } else if (pan.state == UIGestureRecognizerStateEnded || pan.state == UIGestureRecognizerStateCancelled ||pan.state == UIGestureRecognizerStateFailed) {
+//        [self.viewBeingDragged removeFromSuperview];
+//        
+//        CGPoint programPoint = [self.programView convertPoint:point fromView:self.view];
+//        CGPoint programTablePoint = [self.programTableView convertPoint:point fromView:self.view];
+//        if ([self.programTableView pointInside:programTablePoint withEvent:nil]) {
+//            NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys: self.methodNameBeingDragged, @"methodName", self.backgroundImgFileBeingDragged, @"backgroundImgFile", nil];
+//            
+//            [self.scripts addObject:dict];            
+//            [self.programTableView reloadData];
+//        }
+//        else if ([self.programView pointInside:programPoint withEvent:nil]) 
+//        {
+//            [self.viewBeingDragged addGestureRecognizer:[[UIPanGestureRecognizer alloc]  initWithTarget:self action:@selector(dragFromProgramView:)]];
+//            NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys: self.methodNameBeingDragged, @"methodName", self.backgroundImgFileBeingDragged, @"backgroundImgFile", nil];
+//            
+//            [self.scripts addObject:dict];            
+//            [self.programTableView reloadData];
+//        }
+//        self.backgroundImgFileBeingDragged = nil;
+//        self.methodNameBeingDragged = nil;
+//        self.viewBeingDragged = nil;
+//        [self.programView setBackgroundColor:[UIColor daisyProgramGrayColor]];
+//    }
+//    
+//
+//}
 
 - (void)panFromToolbox:(UIPanGestureRecognizer *)pan
 {
@@ -304,86 +389,5 @@
         [self.programView setBackgroundColor:[UIColor daisyProgramGrayColor]];
     }
  }
-
-- (BOOL) tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (tableView == self.programTableView) {
-        return YES;
-    } else {
-        return NO;
-    }
-}
-
-- (UITableViewCellEditingStyle) tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return UITableViewCellEditingStyleNone;
-}
-
-- (BOOL) tableView:(UITableView *)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return NO;
-}
-
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-    if (tableView == self.programTableView)
-    {
-        int size = self.scripts.count;
-        if (size > 0)
-        {
-            id movingObject = [self.scripts objectAtIndex:fromIndexPath.row];            
-            [self.scripts objectAtIndex:toIndexPath.row];
-            NSMutableArray *newArray = [[NSMutableArray alloc] initWithObjects:nil];
-            for (int i=0; i <= (self.scripts.count - 1); i++) {
-                if (i == toIndexPath.row)
-                {
-                    [newArray addObject:movingObject];
-                } else {
-                    [newArray addObject:[self.scripts objectAtIndex:i]];
-                }
-            }
-            self.scripts = newArray;
-        }
-    }
-}
-
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    for (UIControl *control in cell.subviews)
-    {       
-
-        if ([control isMemberOfClass:NSClassFromString(@"UITableViewCellReorderControl")] && [control.subviews count] > 0)
-        {        
-            UIView* resizedGripView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetMaxX(control.frame), CGRectGetMaxY(control.frame))];
-
-            [resizedGripView addSubview:control];
-            [cell addSubview:resizedGripView];
-            
-            CGSize sizeDifference = CGSizeMake(resizedGripView.frame.size.width - control.frame.size.width, resizedGripView.frame.size.height - control.frame.size.height);
-            CGSize transformRatio = CGSizeMake(resizedGripView.frame.size.width / control.frame.size.width, resizedGripView.frame.size.height / control.frame.size.height);
-            
-            //	Original transform
-            CGAffineTransform transform = CGAffineTransformIdentity;
-            
-            //	Scale custom view so grip will fill entire cell
-            transform = CGAffineTransformScale(transform, transformRatio.width, transformRatio.height);
-            
-            //	Move custom view so the grip's top left aligns with the cell's top left
-            transform = CGAffineTransformTranslate(transform, -sizeDifference.width / 2.0, -sizeDifference.height / 2.0);
-            
-            [resizedGripView setTransform:transform];
-            
-            
-            for (id someObj in control.subviews)
-            {
-                if ([someObj isMemberOfClass:[UIImageView class]])
-                {
-                    ((UIImageView*)someObj).image = nil;
-                }
-            }
-
-        }
-    }   
-}
 
 @end
