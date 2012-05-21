@@ -13,6 +13,8 @@
 @property (nonatomic) CGPoint dragOffset;
 @property (nonatomic, strong) NSString *backgroundImgFileBeingDragged;
 @property (nonatomic, strong) NSString *methodNameBeingDragged;
+@property (nonatomic, strong) NSDictionary *insertedCellData;
+@property (nonatomic, strong, readonly) UIView *selectedView;
 @end
 
 @implementation FreeplayViewController
@@ -25,6 +27,8 @@
 @synthesize backgroundImgFileBeingDragged = _backgroundImgFileBeingDragged;
 @synthesize scripts = _scripts;
 @synthesize toolbox = _toolbox;
+@synthesize insertedCellData = _insertedCellData;
+@synthesize selectedView = _selectedView;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -69,6 +73,16 @@
     [self setProgramTableView:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
+}
+
+- (UIView *)selectedView
+{
+    if (!_selectedView)
+    {
+        _selectedView  = [[UIView alloc] initWithFrame:CGRectMake(10.f, 42.f, 132.f, 10.f)];
+        _selectedView.backgroundColor = [UIColor whiteColor];
+    }
+    return _selectedView;
 }
 
 - (MethodView *)viewBeingDragged
@@ -147,6 +161,7 @@
     {
         cell = (ScriptViewCell *)cell;
         [(ScriptViewCell *)cell addSubviewsWithMethodName:methodName backgroundImageFile:backgroundImgFile];
+        cell.tag = indexPath.row;
     } else {
         cell = (DaisyCell *)cell;
         [(DaisyCell *)cell addSubviewsWithMethodName:methodName backgroundImageFile:backgroundImgFile];
@@ -219,6 +234,7 @@
 
 - (void)panFromToolbox:(UIPanGestureRecognizer *)pan
 {
+    [self.selectedView removeFromSuperview];
     CGPoint point = [pan locationInView:self.view];
     if (pan.state == UIGestureRecognizerStateBegan) {
         if ([pan.view isKindOfClass:[MethodView class]])
@@ -236,16 +252,41 @@
     else if (pan.state == UIGestureRecognizerStateChanged) 
     {
         self.viewBeingDragged.center = CGPointMake(point.x + self.dragOffset.x, point.y + self.dragOffset.y);
-        
+        CGPoint programTablePoint = [self.programTableView convertPoint:point fromView:self.view];
+        if ([self.programTableView pointInside:programTablePoint withEvent:nil]) {
+            
+            for (id cell in [self.programTableView subviews]) {
+                if ([cell isKindOfClass:[UITableViewCell class]])
+                {
+                    CGPoint cellPoint = [(UITableViewCell *)cell convertPoint:point fromView:self.view];
+                    if ([(UITableViewCell *)cell pointInside:cellPoint withEvent:nil]) {
+                        [[(UITableViewCell *)cell contentView] addSubview:self.selectedView];
+                    }
+                }
+            } 
+        }
+
     } else if (pan.state == UIGestureRecognizerStateEnded || pan.state == UIGestureRecognizerStateCancelled ||pan.state == UIGestureRecognizerStateFailed) {
         [self.viewBeingDragged removeFromSuperview];
         
         CGPoint programPoint = [self.programView convertPoint:point fromView:self.view];
         CGPoint programTablePoint = [self.programTableView convertPoint:point fromView:self.view];
         if ([self.programTableView pointInside:programTablePoint withEvent:nil]) {
-            NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys: self.methodNameBeingDragged, @"methodName", self.backgroundImgFileBeingDragged, @"backgroundImgFile", nil];
             
-            [self.scripts addObject:dict];            
+            for (id cell in [self.programTableView subviews]) {
+                if ([cell isKindOfClass:[UITableViewCell class]])
+                {   
+                    CGPoint cellPoint = [(UITableViewCell *)cell convertPoint:point fromView:self.view];
+                    if ([(UITableViewCell *)cell pointInside:cellPoint withEvent:nil]) {
+                        self.insertedCellData = [NSDictionary dictionaryWithObjectsAndKeys: self.methodNameBeingDragged, @"methodName", self.backgroundImgFileBeingDragged, @"backgroundImgFile", nil];
+                        [self.scripts insertObject:self.insertedCellData atIndex:[(UITableViewCell *)cell tag] + 1];
+                    }
+                }
+            } 
+            if (!self.insertedCellData) {
+                NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys: self.methodNameBeingDragged, @"methodName", self.backgroundImgFileBeingDragged, @"backgroundImgFile", nil];          
+                [self.scripts addObject:dict];            
+            }
             [self.programTableView reloadData];
         }
         else if ([self.programView pointInside:programPoint withEvent:nil]) 
@@ -259,9 +300,9 @@
         self.backgroundImgFileBeingDragged = nil;
         self.methodNameBeingDragged = nil;
         self.viewBeingDragged = nil;
+        self.insertedCellData = nil;
         [self.programView setBackgroundColor:[UIColor daisyProgramGrayColor]];
     }
-
  }
 
 - (BOOL) tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
