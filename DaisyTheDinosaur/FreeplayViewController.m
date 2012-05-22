@@ -365,4 +365,8 @@
     
 }
 
+#pragma mark IBActions
+- (IBAction)playMethods:(id)sender {
+    NSLog(@"================> %@", @"play pressed");
+}
 @end

@@ -18,4 +18,5 @@
 @property (strong, nonatomic, readonly) NSArray *toolbox;
 @property (strong, nonatomic) NSMutableArray *scripts;
 @property (weak, nonatomic) IBOutlet ProgramView *programView;
+- (IBAction)playMethods:(id)sender;
 @end
