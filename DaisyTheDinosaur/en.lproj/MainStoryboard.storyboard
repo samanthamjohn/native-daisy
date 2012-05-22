@@ -67,25 +67,25 @@
                         <rect key="frame" x="0.0" y="64" width="1024" height="704"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="center" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="iCf-go-4bf">
-                                <rect key="frame" x="15" y="20" width="165.5" height="383"/>
+                            <tableView clipsSubviews="YES" contentMode="center" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="74" sectionHeaderHeight="22" sectionFooterHeight="22" id="iCf-go-4bf">
+                                <rect key="frame" x="15" y="20" width="222" height="383"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Control" id="8Zv-Vt-UVe" customClass="DaisyCell">
-                                        <rect key="frame" x="0.0" y="22" width="165.5" height="44"/>
+                                        <rect key="frame" x="0.0" y="22" width="222" height="74"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="165.5" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="222" height="73"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Method" id="ejv-6N-AWu" customClass="DaisyCell">
-                                        <rect key="frame" x="0.0" y="66" width="165.5" height="44"/>
+                                        <rect key="frame" x="0.0" y="96" width="222" height="74"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="165.5" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="222" height="73"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
@@ -95,28 +95,28 @@
                                 <sections/>
                             </tableView>
                             <view contentMode="scaleToFill" id="X5t-kY-bC8" customClass="ProgramView">
-                                <rect key="frame" x="207" y="20" width="712" height="383"/>
+                                <rect key="frame" x="252" y="20" width="667" height="383"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <tableView clipsSubviews="YES" contentMode="center" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="KuD-Td-TyF">
-                                        <rect key="frame" x="0.0" y="0.0" width="166" height="383"/>
+                                    <tableView clipsSubviews="YES" contentMode="center" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="74" sectionHeaderHeight="22" sectionFooterHeight="22" id="KuD-Td-TyF">
+                                        <rect key="frame" x="0.0" y="0.0" width="222" height="383"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <prototypes>
                                             <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Control" id="Afq-fh-Qzh" customClass="ScriptViewCell">
-                                                <rect key="frame" x="0.0" y="22" width="166" height="44"/>
+                                                <rect key="frame" x="0.0" y="22" width="222" height="74"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                                    <rect key="frame" x="0.0" y="0.0" width="166" height="43"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="222" height="73"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 </view>
                                             </tableViewCell>
                                             <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Method" id="pUa-86-K5c" customClass="ScriptViewCell">
-                                                <rect key="frame" x="0.0" y="66" width="166" height="44"/>
+                                                <rect key="frame" x="0.0" y="96" width="222" height="74"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                                    <rect key="frame" x="0.0" y="0.0" width="166" height="43"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="222" height="73"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 </view>

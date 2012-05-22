@@ -30,7 +30,6 @@
 @synthesize insertedCellData = _insertedCellData;
 @synthesize selectedView = _selectedView;
 
-
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -81,7 +80,7 @@
 {
     if (!_selectedView)
     {
-        _selectedView  = [[UIView alloc] initWithFrame:CGRectMake(10.f, 42.f, 132.f, 10.f)];
+        _selectedView  = [[UIView alloc] initWithFrame:CGRectMake(10.f, CELL_HEIGHT - 10.f, CELL_WIDTH - 20.f, 10.f)];
         _selectedView.backgroundColor = [UIColor whiteColor];
     }
     return _selectedView;
@@ -90,7 +89,7 @@
 - (MethodView *)viewBeingDragged
 {
     if(!_viewBeingDragged && self.methodNameBeingDragged && self.backgroundImgFileBeingDragged) {
-         _viewBeingDragged = [[MethodView alloc] initWithFrame:CGRectMake(0.f, 0.f, 152.f, 42.f) withName:self.methodNameBeingDragged withBackgroundImageFile:self.backgroundImgFileBeingDragged];
+         _viewBeingDragged = [[MethodView alloc] initWithFrame:CGRectMake(0.f, 0.f, CELL_WIDTH, CELL_HEIGHT) withName:self.methodNameBeingDragged withBackgroundImageFile:self.backgroundImgFileBeingDragged];
         [self.view addSubview:self.viewBeingDragged];
     } 
     return _viewBeingDragged;
@@ -104,7 +103,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 52.f;
+    return CELL_HEIGHT;
 }
 
 - (UITableViewCellEditingStyle) tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath

@@ -13,7 +13,7 @@
 
 - (void)addSubviewsWithMethodName:(NSString *)methodName backgroundImageFile:(NSString *)backgroundImgFile
 {
-    MethodView *methodView = [[MethodView alloc] initWithFrame:CGRectMake(0.f, 0.f, 152.f, 42.f) withName:methodName withBackgroundImageFile:backgroundImgFile];
+    MethodView *methodView = [[MethodView alloc] initWithFrame:CGRectMake(0.f, 0.f, CELL_WIDTH, CELL_HEIGHT) withName:methodName withBackgroundImageFile:backgroundImgFile];
     //FIXME why can't I just set this directly?? 
     self.methodView = methodView;
     self.contentView.backgroundColor = [UIColor clearColor];   

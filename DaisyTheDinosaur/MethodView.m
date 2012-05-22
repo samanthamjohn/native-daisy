@@ -7,10 +7,13 @@
 //
 
 #import "MethodView.h"
+@interface MethodView()
+@end
 
 @implementation MethodView
 @synthesize name = _name;
 @synthesize backgroundImgFile = _backgroundImgFile;
+
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -21,6 +24,7 @@
     return self;
 }
 
+
 - (id)initWithFrame:(CGRect)frame withName:(NSString *)name withBackgroundImageFile:(NSString *)backgroundImgFile;
 {
     self.backgroundImgFile = backgroundImgFile;
@@ -30,14 +34,12 @@
     UIImageView *backgroundImageView;
     UILabel *methodNameView;
     
-    
-    
     if (self) {
-        backgroundImageView = [[UIImageView alloc] initWithFrame:CGRectMake(5.f, 5.f, 142.f, 42.f)];
+        backgroundImageView = [[UIImageView alloc] initWithFrame:CGRectMake(5.f, 5.f, CELL_WIDTH - 10.f, CELL_HEIGHT - 10.f)];
         backgroundImageView.image = [UIImage imageNamed:backgroundImgFile];
         [self addSubview:backgroundImageView];
         
-        CGRect labelFrame = CGRectMake(0.f, 0.f, 152.f, 42.f);
+        CGRect labelFrame = CGRectMake(0.f, 0.f, CELL_WIDTH, CELL_HEIGHT);
         
         methodNameView = [[UILabel alloc] initWithFrame:labelFrame];
         methodNameView.textAlignment = UITextAlignmentCenter;
