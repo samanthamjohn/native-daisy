@@ -278,54 +278,6 @@
     }
 }
 
-//- (void)dragFromProgramView:(UIPanGestureRecognizer *)pan
-//{
-//    CGPoint point = [pan locationInView:self.view];
-//    if (pan.state == UIGestureRecognizerStateBegan) {
-//        if ([pan.view isKindOfClass:[MethodView class]])
-//        {
-//            self.methodNameBeingDragged = ((MethodView *)pan.view).name;
-//            self.backgroundImgFileBeingDragged = ((MethodView *)pan.view).backgroundImgFile;
-//        }
-//        
-//        CGPoint touchLocation = [pan locationOfTouch:0 inView:self.view];
-//        CGPoint methodCenter = [pan.view.superview convertPoint:pan.view.center toView:self.view];
-//        self.dragOffset = CGPointMake(methodCenter.x - touchLocation.x, methodCenter.y - touchLocation.y);
-//        self.viewBeingDragged.center = CGPointMake(point.x + self.dragOffset.x, point.y + self.dragOffset.y);
-//        [self.programView setBackgroundColor:[UIColor lightGrayColor]];
-//    }
-//    else if (pan.state == UIGestureRecognizerStateChanged) 
-//    {
-//        self.viewBeingDragged.center = CGPointMake(point.x + self.dragOffset.x, point.y + self.dragOffset.y);
-//        
-//    } else if (pan.state == UIGestureRecognizerStateEnded || pan.state == UIGestureRecognizerStateCancelled ||pan.state == UIGestureRecognizerStateFailed) {
-//        [self.viewBeingDragged removeFromSuperview];
-//        
-//        CGPoint programPoint = [self.programView convertPoint:point fromView:self.view];
-//        CGPoint programTablePoint = [self.programTableView convertPoint:point fromView:self.view];
-//        if ([self.programTableView pointInside:programTablePoint withEvent:nil]) {
-//            NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys: self.methodNameBeingDragged, @"methodName", self.backgroundImgFileBeingDragged, @"backgroundImgFile", nil];
-//            
-//            [self.scripts addObject:dict];            
-//            [self.programTableView reloadData];
-//        }
-//        else if ([self.programView pointInside:programPoint withEvent:nil]) 
-//        {
-//            [self.viewBeingDragged addGestureRecognizer:[[UIPanGestureRecognizer alloc]  initWithTarget:self action:@selector(dragFromProgramView:)]];
-//            NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys: self.methodNameBeingDragged, @"methodName", self.backgroundImgFileBeingDragged, @"backgroundImgFile", nil];
-//            
-//            [self.scripts addObject:dict];            
-//            [self.programTableView reloadData];
-//        }
-//        self.backgroundImgFileBeingDragged = nil;
-//        self.methodNameBeingDragged = nil;
-//        self.viewBeingDragged = nil;
-//        [self.programView setBackgroundColor:[UIColor daisyProgramGrayColor]];
-//    }
-//    
-//
-//}
-
 - (void)panFromToolbox:(UIPanGestureRecognizer *)pan
 {
     [self.selectedView removeFromSuperview];
