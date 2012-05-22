@@ -14,7 +14,7 @@
 @property (nonatomic, strong) NSString *backgroundImgFileBeingDragged;
 @property (nonatomic, strong) NSString *methodNameBeingDragged;
 @property (nonatomic, strong) NSDictionary *insertedCellData;
-@property (nonatomic, strong, readonly) UIView *selectedView;
+@property (nonatomic, strong) UIView *selectedView;
 @end
 
 @implementation FreeplayViewController
@@ -70,6 +70,8 @@
     [self setToolboxView:nil];
     [self setProgramView:nil];
     [self setProgramTableView:nil];
+    [self setViewBeingDragged:nil];
+    [self setSelectedView:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
