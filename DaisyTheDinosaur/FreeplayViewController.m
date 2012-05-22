@@ -63,6 +63,7 @@
     self.toolboxView.delegate = self;
     self.programTableView.dataSource = self;
     self.programTableView.delegate = self;
+    [self.programTableView setEditing:YES];
 }
 
 - (void)viewDidUnload
@@ -104,6 +105,56 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 52.f;
+}
+
+- (UITableViewCellEditingStyle) tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return UITableViewCellEditingStyleNone;
+}
+
+- (BOOL) tableView:(UITableView *)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return NO;
+}
+
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    for (UIControl *control in cell.subviews)
+    {       
+        
+        if ([control isMemberOfClass:NSClassFromString(@"UITableViewCellReorderControl")] && [control.subviews count] > 0)
+        {        
+            UIView* resizedGripView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetMaxX(control.frame), CGRectGetMaxY(control.frame))];
+            
+            [resizedGripView addSubview:control];
+            [cell addSubview:resizedGripView];
+            
+            CGSize sizeDifference = CGSizeMake(resizedGripView.frame.size.width - control.frame.size.width, resizedGripView.frame.size.height - control.frame.size.height);
+            CGSize transformRatio = CGSizeMake(resizedGripView.frame.size.width / control.frame.size.width, resizedGripView.frame.size.height / control.frame.size.height);
+            
+            //	Original transform
+            CGAffineTransform transform = CGAffineTransformIdentity;
+            
+            //	Scale custom view so grip will fill entire cell
+            transform = CGAffineTransformScale(transform, transformRatio.width, transformRatio.height);
+            
+            //	Move custom view so the grip's top left aligns with the cell's top left
+            transform = CGAffineTransformTranslate(transform, -sizeDifference.width / 2.0, -sizeDifference.height / 2.0);
+            
+            [resizedGripView setTransform:transform];
+            
+            
+            for (id someObj in control.subviews)
+            {
+                if ([someObj isMemberOfClass:[UIImageView class]])
+                {
+                    ((UIImageView*)someObj).image = nil;
+                }
+            }
+            
+        }
+    }   
 }
 
 #pragma mark - UITableViewDataSource
@@ -173,6 +224,16 @@
         [[(DaisyCell *)cell methodView] addGestureRecognizer:gesture];
     }
     return cell;
+}
+
+
+- (BOOL) tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (tableView == self.programTableView) {
+        return YES;
+    } else {
+        return NO;
+    }
 }
 
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
