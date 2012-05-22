@@ -213,6 +213,13 @@
         cell = (ScriptViewCell *)cell;
         [(ScriptViewCell *)cell addSubviewsWithMethodName:methodName backgroundImageFile:backgroundImgFile];
         cell.tag = indexPath.row;
+        UIPinchGestureRecognizer  *pinchRecognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(deleteFromScript:)];
+        UILongPressGestureRecognizer *longPress= [[UILongPressGestureRecognizer alloc] initWithTarget:self action:nil];
+        pinchRecognizer.delegate = self;
+        longPress.delegate = self;
+        [cell addGestureRecognizer:pinchRecognizer];
+        [cell addGestureRecognizer:longPress];
+
     } else {
         cell = (DaisyCell *)cell;
         [(DaisyCell *)cell addSubviewsWithMethodName:methodName backgroundImageFile:backgroundImgFile];
@@ -391,5 +398,20 @@
         [self.programView setBackgroundColor:[UIColor daisyProgramGrayColor]];
     }
  }
+
+- (void) deleteFromScript: (UIPinchGestureRecognizer *)gesture
+{
+    if (gesture.state == UIGestureRecognizerStateEnded)
+    {
+        ScriptViewCell *cell = (ScriptViewCell *)gesture.view;
+        int index = cell.tag;
+        if (self.scripts.count > index)
+        {
+            [self.scripts removeObjectAtIndex:index];
+            [self.programTableView reloadData];
+        }
+    }
+    
+}
 
 @end
