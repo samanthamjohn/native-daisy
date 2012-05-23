@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <QuartzCore/QuartzCore.h>
 #import "UIColor+daisy.h"
 #import "MethodView.h"
 #import "ProgramView.h"

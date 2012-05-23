@@ -131,10 +131,6 @@
                                 <rect key="frame" x="15" y="411" width="989" height="273"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="daisy-bg.jpg" id="gUI-BQ-fba">
-                                        <rect key="frame" x="13" y="12" width="963" height="247"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="1.png" id="Aje-I6-XkM">
                                         <rect key="frame" x="53" y="119" width="72" height="78"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -210,7 +206,6 @@
     <resources>
         <image name="1.png" width="72" height="78"/>
         <image name="challenge_icon.jpg" width="224" height="275"/>
-        <image name="daisy-bg.jpg" width="1200" height="341"/>
         <image name="daisy_splash_menu.jpg" width="1024" height="748"/>
         <image name="freeplay_icon.jpg" width="219" height="270"/>
         <image name="play-active.png" width="66" height="66"/>

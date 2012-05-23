@@ -34,6 +34,7 @@
 		47222DC6155CBBC0002A5790 /* l7.png in Resources */ = {isa = PBXBuildFile; fileRef = 47222DB1155CBBC0002A5790 /* l7.png */; };
 		47222DC7155CBBC0002A5790 /* l8.png in Resources */ = {isa = PBXBuildFile; fileRef = 47222DB2155CBBC0002A5790 /* l8.png */; };
 		47222DC8155CBBC0002A5790 /* l9.png in Resources */ = {isa = PBXBuildFile; fileRef = 47222DB3155CBBC0002A5790 /* l9.png */; };
+		4789EC35156C45C800EA19FD /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4789EC34156C45C800EA19FD /* QuartzCore.framework */; };
 		4791AC4D15572E3400A7A897 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4791AC4C15572E3400A7A897 /* UIKit.framework */; };
 		4791AC4F15572E3400A7A897 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4791AC4E15572E3400A7A897 /* Foundation.framework */; };
 		4791AC5115572E3400A7A897 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4791AC5015572E3400A7A897 /* CoreGraphics.framework */; };
@@ -61,7 +62,7 @@
 /* Begin PBXFileReference section */
 		471C3B261561F24800556A6C /* MethodView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MethodView.h; sourceTree = "<group>"; };
 		471C3B271561F24800556A6C /* MethodView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MethodView.m; sourceTree = "<group>"; };
-		47222D8D155CAF04002A5790 /* StageView.h */ = {isa = PBXFileReference; fileEncoding = 4; path = StageView.h; sourceTree = "<group>"; };
+		47222D8D155CAF04002A5790 /* StageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StageView.h; sourceTree = "<group>"; };
 		47222D8E155CAF04002A5790 /* StageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StageView.m; sourceTree = "<group>"; };
 		47222D94155CB444002A5790 /* ProgramView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgramView.h; sourceTree = "<group>"; };
 		47222D95155CB444002A5790 /* ProgramView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgramView.m; sourceTree = "<group>"; };
@@ -89,6 +90,7 @@
 		47222DB1155CBBC0002A5790 /* l7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = l7.png; sourceTree = "<group>"; };
 		47222DB2155CBBC0002A5790 /* l8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = l8.png; sourceTree = "<group>"; };
 		47222DB3155CBBC0002A5790 /* l9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = l9.png; sourceTree = "<group>"; };
+		4789EC34156C45C800EA19FD /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		4791AC4815572E3400A7A897 /* DaisyTheDinosaur.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DaisyTheDinosaur.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4791AC4C15572E3400A7A897 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		4791AC4E15572E3400A7A897 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -127,9 +129,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4789EC35156C45C800EA19FD /* QuartzCore.framework in Frameworks */,
+				4791AC5115572E3400A7A897 /* CoreGraphics.framework in Frameworks */,
 				4791AC4D15572E3400A7A897 /* UIKit.framework in Frameworks */,
 				4791AC4F15572E3400A7A897 /* Foundation.framework in Frameworks */,
-				4791AC5115572E3400A7A897 /* CoreGraphics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -191,6 +194,7 @@
 		4791AC3D15572E3300A7A897 = {
 			isa = PBXGroup;
 			children = (
+				4789EC34156C45C800EA19FD /* QuartzCore.framework */,
 				4791AC6F1557311C00A7A897 /* Default-Landscape~ipad.png */,
 				4791AC6D155730F200A7A897 /* Default-Landscape@2x~ipad.png */,
 				4791AC6B1557302400A7A897 /* retina-icon.png */,
