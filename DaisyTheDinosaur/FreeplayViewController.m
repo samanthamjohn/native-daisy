@@ -352,14 +352,33 @@
 
 - (void) deleteFromScript: (UIPinchGestureRecognizer *)gesture
 {
-    if (gesture.state == UIGestureRecognizerStateEnded)
+    ScriptViewCell *cell = (ScriptViewCell *)gesture.view;
+    if (gesture.state == UIGestureRecognizerStateEnded && [gesture.view isKindOfClass:[ScriptViewCell class]] && [self.programTableView indexPathForCell:cell])
     {
-        ScriptViewCell *cell = (ScriptViewCell *)gesture.view;
         int index = cell.tag;
         if (self.scripts.count > index)
         {
-            [self.scripts removeObjectAtIndex:index];
-            [self.programTableView reloadData];
+            NSDictionary *dict = [self.scripts objectAtIndex:index];
+            MethodView *methodView = [(ScriptViewCell *)cell methodView];
+            if ([dict objectForKey:@"methodName"] == methodView.name && methodView.backgroundImgFile == [dict objectForKey:@"backgroundImgFile"])
+            {
+                [self.scripts removeObjectAtIndex:index];
+                [self.programTableView beginUpdates];
+                [self.programTableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:[self.programTableView indexPathForCell:cell]] withRowAnimation:UITableViewRowAnimationFade];
+
+                for (int i = 0; i < self.scripts.count; i++) {
+                    UITableViewCell *newCell = [self.programTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
+                    newCell.tag = i;
+                }
+                [self.programTableView endUpdates];
+                for (id cell in [self.programTableView subviews]) {
+                    if ([cell isKindOfClass:[ScriptViewCell class]])
+                    {
+                        NSIndexPath *indexPath = [self.programTableView indexPathForCell:cell];
+                        [(ScriptViewCell *)cell setTag:indexPath.row];
+                    }
+                }
+            }
         }
     }
     
