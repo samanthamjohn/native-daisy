@@ -12,6 +12,7 @@
 #import "MethodView.h"
 #import "ProgramView.h"
 #import "ScriptViewCell.h"
+#import "StageView.h"
 
 @interface FreeplayViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *toolboxView;
@@ -20,4 +21,5 @@
 @property (strong, nonatomic) NSMutableArray *scripts;
 @property (weak, nonatomic) IBOutlet ProgramView *programView;
 - (IBAction)playMethods:(id)sender;
+@property (weak, nonatomic) IBOutlet StageView *stageView;
 @end

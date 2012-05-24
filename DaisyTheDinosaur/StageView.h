@@ -10,5 +10,5 @@
 #import <QuartzCore/QuartzCore.h>
 
 @interface StageView : UIView
-
+- (void) playMethods: (NSArray *)methodList;
 @end

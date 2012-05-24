@@ -18,6 +18,7 @@
 @end
 
 @implementation FreeplayViewController
+@synthesize stageView = _stageView;
 @synthesize toolboxView = _toolboxView;
 @synthesize programTableView = _programTableView;
 @synthesize programView = _programView;
@@ -72,6 +73,7 @@
     [self setProgramTableView:nil];
     [self setViewBeingDragged:nil];
     [self setSelectedView:nil];
+    [self setStageView:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
@@ -386,6 +388,6 @@
 
 #pragma mark IBActions
 - (IBAction)playMethods:(id)sender {
-    NSLog(@"================> %@", @"play pressed");
+    [self.stageView playMethods:self.scripts];
 }
 @end

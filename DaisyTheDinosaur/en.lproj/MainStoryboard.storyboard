@@ -130,12 +130,6 @@
                             <view clipsSubviews="YES" contentMode="scaleToFill" id="SGT-yr-Obo" customClass="StageView">
                                 <rect key="frame" x="15" y="411" width="989" height="273"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="1.png" id="Aje-I6-XkM">
-                                        <rect key="frame" x="53" y="119" width="72" height="78"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    </imageView>
-                                </subviews>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="mwx-nS-Qg0">
@@ -162,6 +156,7 @@
                     <connections>
                         <outlet property="programTableView" destination="KuD-Td-TyF" id="evX-nB-p3g"/>
                         <outlet property="programView" destination="X5t-kY-bC8" id="ghe-Ps-Y9v"/>
+                        <outlet property="stageView" destination="SGT-yr-Obo" id="xGu-Lz-bl6"/>
                         <outlet property="toolboxView" destination="iCf-go-4bf" id="vhw-xG-lIJ"/>
                     </connections>
                 </viewController>
@@ -204,7 +199,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="1.png" width="72" height="78"/>
         <image name="challenge_icon.jpg" width="224" height="275"/>
         <image name="daisy_splash_menu.jpg" width="1024" height="748"/>
         <image name="freeplay_icon.jpg" width="219" height="270"/>
