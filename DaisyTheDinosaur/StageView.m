@@ -10,9 +10,20 @@
 #import "UIColor+daisy.h"
 @interface StageView()
 @property (nonatomic, strong) CALayer *daisyLayer;
+@property (nonatomic, strong) NSString *direction;
 @end
 @implementation StageView
 @synthesize daisyLayer = _daisyLayer;
+@synthesize direction = _direction;
+
+- (NSString *) direction
+{
+    if (!_direction)
+    {
+        _direction = @"forward";
+    }
+    return _direction;
+}
 
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
@@ -67,9 +78,19 @@
             animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
             currentPosition = newPosition;
     
+    
             [animations addObject:animation];
         } else if (name == @"turn") {
-            NSLog(@"================> %@", @"turn");
+            CABasicAnimation *turn = [self createTurnWithDuration:0.5 WithStartTime:start FromImageNamed: @"1.png" ToImageNamed:@"back.png"];
+            [animations addObject:turn];
+            start = start + 0.5;
+            
+            CABasicAnimation *newTurn = [self createTurnWithDuration:0.5 WithStartTime:start FromImageNamed: @"back.png" ToImageNamed:@"l1.png"];
+            [animations addObject:newTurn];
+             start = start + 0.5;
+            
+            self.direction = @"backwards";
+
         } else if (name == @"roll") {
             CABasicAnimation *rotate = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
             rotate.removedOnCompletion = NO;
@@ -92,6 +113,35 @@
     group.fillMode = kCAFillModeForwards;
     [group setAnimations:[NSArray arrayWithArray:animations]];
     [self.daisyLayer addAnimation:group forKey:nil];
+
  }
+
+- (CABasicAnimation *)createTurnWithDuration:(CGFloat)duration WithStartTime:(CGFloat)start FromImageNamed: (NSString *)fromImageName ToImageNamed: (NSString *)imageName
+{
+    CABasicAnimation *turn = [CABasicAnimation animationWithKeyPath:@"contents"];
+    
+    NSString *toImageFile = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:imageName];
+    CGDataProviderRef dataProvider = CGDataProviderCreateWithFilename([toImageFile UTF8String]);
+    CGImageRef toImage = CGImageCreateWithPNGDataProvider(dataProvider, NULL, NO, kCGRenderingIntentDefault);
+    turn.toValue = (__bridge_transfer id) toImage;
+    
+    NSString *fromImageFile = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:fromImageName];
+    CGDataProviderRef fromDataProvider = CGDataProviderCreateWithFilename([fromImageFile UTF8String]);
+
+    CGImageRef fromImage = CGImageCreateWithPNGDataProvider(fromDataProvider, NULL, NO, kCGRenderingIntentDefault);
+    turn.fromValue = (__bridge_transfer id) fromImage;
+    
+    turn.duration = duration;
+    turn.beginTime = start;
+    turn.fillMode = kCAFillModeForwards;
+    turn.removedOnCompletion = NO;
+    turn.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionDefault];
+    CGDataProviderRelease(fromDataProvider);
+    CGDataProviderRelease(dataProvider);
+
+    return turn;
+}
+
+
 
 @end
