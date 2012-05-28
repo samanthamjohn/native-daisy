@@ -251,16 +251,24 @@
         int size = self.scripts.count;
         if (size > 0)
         {
-            id movingObject = [self.scripts objectAtIndex:fromIndexPath.row];            
-            [self.scripts objectAtIndex:toIndexPath.row];
-            NSMutableArray *newArray = [[NSMutableArray alloc] initWithObjects:nil];
-            for (int i=0; i <= (self.scripts.count - 1); i++) {
+            NSMutableArray *newArray = [[NSMutableArray alloc] init];
+            int j;
+            for (int i=0; i < self.scripts.count; i++) {
+                if (i > toIndexPath.row) {
+                    j = i - 1;
+                } else if (i < toIndexPath.row) {
+                    j = i;
+                }
+                
+                if (i > fromIndexPath.row || (i == fromIndexPath.row && fromIndexPath.row < toIndexPath.row)) {
+                    j = j + 1;
+                }
+                                
                 if (i == toIndexPath.row)
                 {
-                    [newArray addObject:movingObject];
-                } else {
-                    [newArray addObject:[self.scripts objectAtIndex:i]];
-                }
+                    j = fromIndexPath.row;
+                }                
+                [newArray addObject:[self.scripts objectAtIndex:j]];
             }
             self.scripts = newArray;
         }
