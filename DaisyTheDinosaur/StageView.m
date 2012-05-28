@@ -16,15 +16,6 @@
 @synthesize daisyLayer = _daisyLayer;
 @synthesize direction = _direction;
 
-- (NSString *) direction
-{
-    if (!_direction)
-    {
-        _direction = @"forward";
-    }
-    return _direction;
-}
-
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
     self = [super initWithCoder:aDecoder];
@@ -62,46 +53,49 @@
     
     CGPoint currentPosition = self.daisyLayer.position;
     CGPoint newPosition;
+    self.direction = @"forward";
     NSMutableArray *animations = [[NSMutableArray alloc] init];
     for (NSDictionary *dict in methodList) {
         name = [dict objectForKey:@"methodName"];
         if (name == @"move") {
-            newPosition = CGPointMake(currentPosition.x + 50, currentPosition.y);
-            CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"position"];
-            animation.beginTime = start;
-            animation.removedOnCompletion = NO;
-            animation.fillMode = kCAFillModeForwards;
+            if (self.direction == @"backward") {
+                newPosition = CGPointMake(currentPosition.x - 50, currentPosition.y);
+            } else {
+                newPosition = CGPointMake(currentPosition.x + 50, currentPosition.y);
+            }
+            CABasicAnimation *animation = [self createDaisyAnimationWithKeyPath:@"position" andDuration:duration atStart:start];
             animation.fromValue = [NSValue valueWithCGPoint:currentPosition];
             animation.toValue = [NSValue valueWithCGPoint:newPosition];
-            animation.duration = duration;
             start += duration;
-            animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
             currentPosition = newPosition;
-    
-    
             [animations addObject:animation];
         } else if (name == @"turn") {
-            CABasicAnimation *turn = [self createTurnWithDuration:0.5 WithStartTime:start FromImageNamed: @"1.png" ToImageNamed:@"back.png"];
+            CABasicAnimation *turn;
+            CABasicAnimation *newTurn;
+            if (self.direction == @"forward") {
+                turn = [self createTurnWithDuration:0.5 WithStartTime:start FromImageNamed: @"1.png" ToImageNamed:@"back.png"];
+                start = start + 0.5;
+                
+                newTurn = [self createTurnWithDuration:0.5 WithStartTime:start FromImageNamed: @"back.png" ToImageNamed:@"l1.png"];
+                self.direction = @"backward";
+            } else if (self.direction == @"backward") {
+                turn = [self createTurnWithDuration:0.5 WithStartTime:start FromImageNamed: @"l1.png" ToImageNamed:@"front.png"];
+                start = start + 0.5;
+                
+                newTurn = [self createTurnWithDuration:0.5 WithStartTime:start FromImageNamed: @"front.png" ToImageNamed:@"1.png"];
+                self.direction = @"forward";
+
+            }
             [animations addObject:turn];
+            [animations addObject:newTurn];
             start = start + 0.5;
             
-            CABasicAnimation *newTurn = [self createTurnWithDuration:0.5 WithStartTime:start FromImageNamed: @"back.png" ToImageNamed:@"l1.png"];
-            [animations addObject:newTurn];
-             start = start + 0.5;
-            
-            self.direction = @"backwards";
 
         } else if (name == @"roll") {
-            CABasicAnimation *rotate = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
-            rotate.removedOnCompletion = NO;
-            rotate.fillMode = kCAFillModeForwards;
-            rotate.duration = duration;
-            rotate.beginTime = start;
+            CABasicAnimation *rotate = [self createDaisyAnimationWithKeyPath:@"transform.rotation.z" andDuration:duration atStart:start];
             start = start + duration;
-            rotate.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
             rotate.toValue = [NSNumber numberWithFloat: 2 * M_PI ];    
             [animations addObject:rotate];
-
         }
         
     }
@@ -116,9 +110,20 @@
 
  }
 
+- (CABasicAnimation *)createDaisyAnimationWithKeyPath:(NSString *)keyPath andDuration:(CGFloat) duration atStart:(CGFloat)start
+{
+    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:keyPath];
+    animation.beginTime = start;
+    animation.removedOnCompletion = NO;
+    animation.fillMode = kCAFillModeForwards;
+    animation.duration = duration;
+    animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
+    return animation;
+}
+
 - (CABasicAnimation *)createTurnWithDuration:(CGFloat)duration WithStartTime:(CGFloat)start FromImageNamed: (NSString *)fromImageName ToImageNamed: (NSString *)imageName
 {
-    CABasicAnimation *turn = [CABasicAnimation animationWithKeyPath:@"contents"];
+    CABasicAnimation *turn = [self createDaisyAnimationWithKeyPath:@"contents" andDuration:duration atStart:start];
     
     NSString *toImageFile = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:imageName];
     CGDataProviderRef dataProvider = CGDataProviderCreateWithFilename([toImageFile UTF8String]);
@@ -131,11 +136,6 @@
     CGImageRef fromImage = CGImageCreateWithPNGDataProvider(fromDataProvider, NULL, NO, kCGRenderingIntentDefault);
     turn.fromValue = (__bridge_transfer id) fromImage;
     
-    turn.duration = duration;
-    turn.beginTime = start;
-    turn.fillMode = kCAFillModeForwards;
-    turn.removedOnCompletion = NO;
-    turn.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionDefault];
     CGDataProviderRelease(fromDataProvider);
     CGDataProviderRelease(dataProvider);
 
