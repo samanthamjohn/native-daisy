@@ -94,7 +94,12 @@
         } else if (name == @"roll") {
             CABasicAnimation *rotate = [self createDaisyAnimationWithKeyPath:@"transform.rotation.z" andDuration:duration atStart:start];
             start = start + duration;
-            rotate.toValue = [NSNumber numberWithFloat: 2 * M_PI ];    
+            if (self.direction == @"forward") 
+            {
+                rotate.toValue = [NSNumber numberWithFloat: 2 * M_PI ];       
+            } else {
+                rotate.toValue = [NSNumber numberWithFloat:-2 * M_PI];
+            }
             [animations addObject:rotate];
         }
         
