@@ -53,6 +53,7 @@
     
     CGPoint currentPosition = self.daisyLayer.position;
     CGPoint newPosition;
+    CGFloat scale = 1.f;
     self.direction = @"forward";
     NSMutableArray *animations = [[NSMutableArray alloc] init];
     for (NSDictionary *dict in methodList) {
@@ -128,6 +129,28 @@
                 rotate.toValue = [NSNumber numberWithFloat:-2 * M_PI];
             }
             [animations addObject:rotate];
+        } else if (name == @"grow") {
+            CABasicAnimation *grow = [self createDaisyAnimationWithKeyPath:@"transform.scale" andDuration:duration atStart:start];
+            grow.fromValue = [NSNumber numberWithFloat:scale];
+            scale = scale * 1.25;
+            grow.toValue = [NSNumber numberWithFloat:scale];
+            if (scale > 2.f)
+            {
+                CABasicAnimation *switchToLarge = [self createTurnWithDuration:0.1 WithStartTime:start FromImageNamed:@"1.png" ToImageNamed:@"1_large.png"];
+                [animations addObject:switchToLarge];
+                start += 0.1;
+            }
+            [animations addObject:grow];
+
+            CABasicAnimation *moveUp = [self createDaisyAnimationWithKeyPath:@"position.y" andDuration:duration atStart:start];
+            newPosition = CGPointMake(currentPosition.x, currentPosition.y + 50 - 0.66 * self.daisyLayer.frame.size.height * 1.25);
+            moveUp.fromValue = [NSNumber numberWithFloat:currentPosition.y];
+            moveUp.toValue = [NSNumber numberWithFloat:newPosition.y];
+            currentPosition = newPosition;
+            start += duration;
+
+            [animations addObject:moveUp];
+
         }
         
     }
