@@ -135,7 +135,6 @@
     totalDuration = start + duration;
     CAAnimationGroup *group = [CAAnimationGroup animation];
     group.duration = totalDuration;
-    group.removedOnCompletion = NO;
     group.fillMode = kCAFillModeForwards;
     [group setAnimations:[NSArray arrayWithArray:animations]];
     [self.daisyLayer addAnimation:group forKey:nil];
@@ -146,7 +145,6 @@
 {
     CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:keyPath];
     animation.beginTime = start;
-    animation.removedOnCompletion = NO;
     animation.fillMode = kCAFillModeForwards;
     animation.duration = duration;
     animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
