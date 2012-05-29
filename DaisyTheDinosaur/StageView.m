@@ -89,8 +89,35 @@
             [animations addObject:turn];
             [animations addObject:newTurn];
             start = start + 0.5;
+        } else if (name == @"spin") {
+            CABasicAnimation *turn1;
+            CABasicAnimation *turn2;
+            CABasicAnimation *turn3;
+            CABasicAnimation *turn4;
             
+            if (self.direction == @"forward") {
+                turn1 = [self createTurnWithDuration:0.5 WithStartTime:start FromImageNamed: @"1.png" ToImageNamed:@"back.png"];
+                start = start + 0.5;
+                turn2 = [self createTurnWithDuration:0.5 WithStartTime:start FromImageNamed: @"back.png" ToImageNamed:@"l1.png"];
+                start = start + 0.5;
+                turn3 = [self createTurnWithDuration:0.5 WithStartTime:start FromImageNamed: @"l1.png" ToImageNamed:@"front.png"];
+                start = start + 0.5;
+                turn4 = [self createTurnWithDuration:0.5 WithStartTime:start FromImageNamed: @"front.png" ToImageNamed:@"1.png"];
+            } else {
+                turn1 = [self createTurnWithDuration:0.5 WithStartTime:start FromImageNamed: @"l1.png" ToImageNamed:@"front.png"];
+                start += 0.5;
+                turn2 = [self createTurnWithDuration:0.5 WithStartTime:start FromImageNamed: @"front.png" ToImageNamed:@"1.png"];
+                start += 0.5;
+                turn3 = [self createTurnWithDuration:0.5 WithStartTime:start FromImageNamed: @"1.png" ToImageNamed:@"back.png"];
+                start += 0.5;
+                turn4 = [self createTurnWithDuration:0.5 WithStartTime:start FromImageNamed: @"back.png" ToImageNamed:@"l1.png"];
+            }
+            [animations addObject:turn1];
+            [animations addObject:turn2];
+            [animations addObject:turn3];
+            [animations addObject:turn4];
 
+            start = start + 0.5;
         } else if (name == @"roll") {
             CABasicAnimation *rotate = [self createDaisyAnimationWithKeyPath:@"transform.rotation.z" andDuration:duration atStart:start];
             start = start + duration;
