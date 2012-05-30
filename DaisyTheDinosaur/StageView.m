@@ -143,6 +143,16 @@
 
             [animations addObject:moveUp];
 
+        } else if (name == @"jump") {
+            CAKeyframeAnimation *jump = [CAKeyframeAnimation animationWithKeyPath:@"position.y"];
+            jump.beginTime = start;
+            jump.fillMode = kCAFillModeForwards;
+            jump.duration = duration;
+            jump.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
+            jump.calculationMode = kCAAnimationLinear;
+            jump.values = [NSArray arrayWithObjects:[NSNumber numberWithFloat:currentPosition.y], [NSNumber numberWithFloat:currentPosition.y - 50], [NSNumber numberWithFloat:currentPosition.y], nil];
+            [animations addObject:jump];
+            start += duration;
         }
         
     }
