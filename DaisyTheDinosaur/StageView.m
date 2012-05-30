@@ -116,10 +116,21 @@
             }
             [animations addObject:rotate];
         } else if (name == @"shrink") {
-            CABasicAnimation *test = [self createDaisyAnimationWithKeyPath:@"transform.rotation.y" andDuration:0.1 atStart:start];
-            test.toValue = [NSNumber numberWithFloat:1 * M_PI];
-            start += 0.1;
-            [animations addObject:test];
+            CABasicAnimation *shrink = [self createDaisyAnimationWithKeyPath:@"transform.scale" andDuration:duration atStart:start];
+            shrink.fromValue = [NSNumber numberWithFloat:scale];
+            scale = scale * 0.8;
+            shrink.toValue = [NSNumber numberWithFloat:scale];
+
+            [animations addObject:shrink];
+            
+            CABasicAnimation *moveDown = [self createDaisyAnimationWithKeyPath:@"position.y" andDuration:duration atStart:start];
+            newPosition = CGPointMake(currentPosition.x, currentPosition.y + 50 - 0.66 * self.daisyLayer.frame.size.height * 0.8);
+            moveDown.fromValue = [NSNumber numberWithFloat:currentPosition.y];
+            moveDown.toValue = [NSNumber numberWithFloat:newPosition.y];
+            currentPosition = newPosition;
+            start += duration;
+            
+            [animations addObject:moveDown];        
         } else if (name == @"grow") {
             CABasicAnimation *grow = [self createDaisyAnimationWithKeyPath:@"transform.scale" andDuration:duration atStart:start];
             grow.fromValue = [NSNumber numberWithFloat:scale];
