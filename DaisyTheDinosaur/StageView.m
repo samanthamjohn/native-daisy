@@ -10,11 +10,9 @@
 #import "UIColor+daisy.h"
 @interface StageView()
 @property (nonatomic, strong) CALayer *daisyLayer;
-@property (nonatomic, strong) NSString *direction;
 @end
 @implementation StageView
 @synthesize daisyLayer = _daisyLayer;
-@synthesize direction = _direction;
 
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
@@ -54,12 +52,12 @@
     CGPoint currentPosition = self.daisyLayer.position;
     CGPoint newPosition;
     CGFloat scale = 1.f;
-    self.direction = @"forward";
+    NSString *direction = @"forward";
     NSMutableArray *animations = [[NSMutableArray alloc] init];
     for (NSDictionary *dict in methodList) {
         name = [dict objectForKey:@"methodName"];
         if (name == @"move") {
-            if (self.direction == @"backward") {
+            if (direction == @"backward") {
                 newPosition = CGPointMake(currentPosition.x - 50, currentPosition.y);
             } else {
                 newPosition = CGPointMake(currentPosition.x + 50, currentPosition.y);
@@ -71,64 +69,57 @@
             currentPosition = newPosition;
             [animations addObject:animation];
         } else if (name == @"turn") {
-            CABasicAnimation *turn;
-            CABasicAnimation *newTurn;
-            if (self.direction == @"forward") {
-                turn = [self createTurnWithDuration:0.5 WithStartTime:start FromImageNamed: @"1.png" ToImageNamed:@"back.png"];
-                start = start + 0.5;
-                
-                newTurn = [self createTurnWithDuration:0.5 WithStartTime:start FromImageNamed: @"back.png" ToImageNamed:@"l1.png"];
-                self.direction = @"backward";
-            } else if (self.direction == @"backward") {
-                turn = [self createTurnWithDuration:0.5 WithStartTime:start FromImageNamed: @"l1.png" ToImageNamed:@"front.png"];
-                start = start + 0.5;
-                
-                newTurn = [self createTurnWithDuration:0.5 WithStartTime:start FromImageNamed: @"front.png" ToImageNamed:@"1.png"];
-                self.direction = @"forward";
+            CABasicAnimation *turn = [self createTurnWithDuration:0.5 WithStartTime:start FromImageNamed: @"1.png" ToImageNamed:@"back.png"];
+            start += 0.5;
+            
+            CABasicAnimation *newTurn = [self createTurnWithDuration:0.5 WithStartTime:start FromImageNamed: @"back.png" ToImageNamed:@"1.png"];
+            CABasicAnimation *flip = [self createDaisyAnimationWithKeyPath:@"transform.rotation.y" andDuration:0.1f atStart:start];
+            flip.toValue = [NSNumber numberWithFloat:M_PI];
 
+            if (direction == @"forward") {
+                direction = @"backward";
+            } else if (direction == @"backward") {
+                direction = @"forward";
             }
             [animations addObject:turn];
+            currentPosition = [self addFlipAnimationToAnimations:animations AtStartTime:start fromPosition:currentPosition FacingDirection:direction];
             [animations addObject:newTurn];
             start = start + 0.5;
         } else if (name == @"spin") {
-            CABasicAnimation *turn1;
-            CABasicAnimation *turn2;
-            CABasicAnimation *turn3;
-            CABasicAnimation *turn4;
+            CABasicAnimation *turn1 = [self createTurnWithDuration:0.5 WithStartTime:start FromImageNamed: @"1.png" ToImageNamed:@"back.png"];
+            start = start + 0.5;
+            CGFloat flip1start = start;
             
-            if (self.direction == @"forward") {
-                turn1 = [self createTurnWithDuration:0.5 WithStartTime:start FromImageNamed: @"1.png" ToImageNamed:@"back.png"];
-                start = start + 0.5;
-                turn2 = [self createTurnWithDuration:0.5 WithStartTime:start FromImageNamed: @"back.png" ToImageNamed:@"l1.png"];
-                start = start + 0.5;
-                turn3 = [self createTurnWithDuration:0.5 WithStartTime:start FromImageNamed: @"l1.png" ToImageNamed:@"front.png"];
-                start = start + 0.5;
-                turn4 = [self createTurnWithDuration:0.5 WithStartTime:start FromImageNamed: @"front.png" ToImageNamed:@"1.png"];
-            } else {
-                turn1 = [self createTurnWithDuration:0.5 WithStartTime:start FromImageNamed: @"l1.png" ToImageNamed:@"front.png"];
-                start += 0.5;
-                turn2 = [self createTurnWithDuration:0.5 WithStartTime:start FromImageNamed: @"front.png" ToImageNamed:@"1.png"];
-                start += 0.5;
-                turn3 = [self createTurnWithDuration:0.5 WithStartTime:start FromImageNamed: @"1.png" ToImageNamed:@"back.png"];
-                start += 0.5;
-                turn4 = [self createTurnWithDuration:0.5 WithStartTime:start FromImageNamed: @"back.png" ToImageNamed:@"l1.png"];
-            }
+            CABasicAnimation *turn2 = [self createTurnWithDuration:0.5 WithStartTime:start FromImageNamed: @"back.png" ToImageNamed:@"1.png"];
+            start = start + 0.5;
+            CABasicAnimation *turn3 = [self createTurnWithDuration:0.5 WithStartTime:start FromImageNamed: @"1.png" ToImageNamed:@"front.png"];
+            start = start + 0.5;
+            CGFloat flip2start = start;
+            CABasicAnimation *turn4 = [self createTurnWithDuration:0.5 WithStartTime:start FromImageNamed: @"front.png" ToImageNamed:@"1.png"];
             [animations addObject:turn1];
+            currentPosition = [self addFlipAnimationToAnimations:animations AtStartTime:flip1start fromPosition:currentPosition FacingDirection:direction];
             [animations addObject:turn2];
             [animations addObject:turn3];
+            currentPosition = [self addFlipAnimationToAnimations:animations AtStartTime:flip2start fromPosition:currentPosition FacingDirection:direction];
+
             [animations addObject:turn4];
 
             start = start + 0.5;
         } else if (name == @"roll") {
             CABasicAnimation *rotate = [self createDaisyAnimationWithKeyPath:@"transform.rotation.z" andDuration:duration atStart:start];
             start = start + duration;
-            if (self.direction == @"forward") 
+            if (direction == @"forward") 
             {
                 rotate.toValue = [NSNumber numberWithFloat: 2 * M_PI ];       
             } else {
                 rotate.toValue = [NSNumber numberWithFloat:-2 * M_PI];
             }
             [animations addObject:rotate];
+        } else if (name == @"shrink") {
+            CABasicAnimation *test = [self createDaisyAnimationWithKeyPath:@"transform.rotation.y" andDuration:0.1 atStart:start];
+            test.toValue = [NSNumber numberWithFloat:1 * M_PI];
+            start += 0.1;
+            [animations addObject:test];
         } else if (name == @"grow") {
             CABasicAnimation *grow = [self createDaisyAnimationWithKeyPath:@"transform.scale" andDuration:duration atStart:start];
             grow.fromValue = [NSNumber numberWithFloat:scale];
@@ -136,7 +127,8 @@
             grow.toValue = [NSNumber numberWithFloat:scale];
             if (scale > 2.f)
             {
-                CABasicAnimation *switchToLarge = [self createTurnWithDuration:0.1 WithStartTime:start FromImageNamed:@"1.png" ToImageNamed:@"1_large.png"];
+                CABasicAnimation *switchToLarge;
+                switchToLarge = [self createTurnWithDuration:0.1 WithStartTime:start FromImageNamed:@"1.png" ToImageNamed:@"1_large.png"];
                 [animations addObject:switchToLarge];
                 start += 0.1;
             }
@@ -155,7 +147,7 @@
         
     }
     
-    totalDuration = start + duration;
+    totalDuration = start + 0.5;
     CAAnimationGroup *group = [CAAnimationGroup animation];
     group.duration = totalDuration;
     group.fillMode = kCAFillModeForwards;
@@ -163,6 +155,25 @@
     [self.daisyLayer addAnimation:group forKey:nil];
 
  }
+
+- (CGPoint)addFlipAnimationToAnimations:(NSMutableArray *)animations AtStartTime:(CGFloat)start fromPosition: (CGPoint)currentPosition FacingDirection:(NSString *)direction
+{
+    CABasicAnimation *flip = [self createDaisyAnimationWithKeyPath:@"transform.rotation.y" andDuration:0.1f atStart:start];
+    flip.toValue = [NSNumber numberWithFloat:M_PI];
+    
+    CABasicAnimation *move = [self createDaisyAnimationWithKeyPath:@"position.x" andDuration:0.1f atStart:start];
+    CGPoint newPosition;
+    if (direction == @"forward")
+    {
+        newPosition= CGPointMake(currentPosition.x - 4.f, currentPosition.y);
+    } else {
+        newPosition = CGPointMake(currentPosition.x + 4.f, currentPosition.y);
+    }
+    move.toValue = [NSNumber numberWithFloat:newPosition.x];       
+    [animations addObject:flip];
+    [animations addObject:move];
+    return newPosition; 
+}
 
 - (CABasicAnimation *)createDaisyAnimationWithKeyPath:(NSString *)keyPath andDuration:(CGFloat) duration atStart:(CGFloat)start
 {
